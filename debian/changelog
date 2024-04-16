@@ -1,14 +1,21 @@
+gnome-shell-ubuntu-extensions (46.0) noble; urgency=medium
+
+  * Stop using debian/control.in and dh_gnome_clean
+  * Update for GNOME Shell 46
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Tue, 16 Apr 2024 14:20:43 -0400
+
 gnome-shell-ubuntu-extensions (45.1) mantic; urgency=medium
 
   * Fix package name for tiling assistant
 
- -- Jeremy BÃ­cha <jbicha@ubuntu.com>  Thu, 24 Aug 2023 13:23:07 -0400
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Thu, 24 Aug 2023 13:23:07 -0400
 
 gnome-shell-ubuntu-extensions (45.0) mantic; urgency=medium
 
   * Update minimum extension versions for GNOME Shell 45
 
- -- Jeremy BÃ­cha <jbicha@ubuntu.com>  Thu, 24 Aug 2023 12:52:56 -0400
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Thu, 24 Aug 2023 12:52:56 -0400
 
 gnome-shell-ubuntu-extensions (44.0) mantic; urgency=medium
 
