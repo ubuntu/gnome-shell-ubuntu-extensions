@@ -17,7 +17,7 @@ Depends: gnome-shell (<< ${gnome:NextVersion}),
          gnome-shell (>= ${gnome:Version}~),
          gnome-shell-extension-appindicator (>= 50),
          gnome-shell-extension-desktop-icons-ng (>= 46+really47),
-         gnome-shell-extension-tiling-assistant (>= 39-3ubuntu1),
+         gnome-shell-extension-ubuntu-tiling-assistant (>= 39-3ubuntu1),
          gnome-shell-extension-ubuntu-dock (>= 79),
          ${misc:Depends}
 Suggests: gnome-shell-extension-prefs
