@@ -1,3 +1,9 @@
+gnome-shell-ubuntu-extensions (47.0) oracular; urgency=medium
+
+  * Update for GNOME Shell 47
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Tue, 13 Aug 2024 15:06:35 -0400
+
 gnome-shell-ubuntu-extensions (46.0) noble; urgency=medium
 
   * Stop using debian/control.in and dh_gnome_clean
