@@ -1,3 +1,9 @@
+gnome-shell-ubuntu-extensions (48.0) plucky; urgency=medium
+
+  * Update for GNOME Shell 48
+
+ -- Jeremy Bícha <jbicha@ubuntu.com>  Wed, 12 Feb 2025 22:03:06 -0500
+
 gnome-shell-ubuntu-extensions (47.0) oracular; urgency=medium
 
   * Update for GNOME Shell 47
