@@ -1,3 +1,11 @@
+gnome-shell-ubuntu-extensions (49.0) questing; urgency=medium
+
+  * Update for GNOME Shell 49 and later, removing strict version requirements
+    already enforced in the individual extensions. It doesn't make sense to
+    have to bump the dependencies here too.
+
+ -- Daniel van Vugt <daniel.van.vugt@canonical.com>  Wed, 16 Jul 2025 13:26:45 +0800
+
 gnome-shell-ubuntu-extensions (48.0) plucky; urgency=medium
 
   * Update for GNOME Shell 48

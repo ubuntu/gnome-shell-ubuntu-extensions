@@ -13,12 +13,10 @@ Homepage: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 
 Package: gnome-shell-ubuntu-extensions
 Architecture: all
-Depends: gnome-shell (<< ${gnome:NextVersion}),
-         gnome-shell (>= ${gnome:Version}),
-         gnome-shell-extension-appindicator (>= 59-3~),
-         gnome-shell-extension-desktop-icons-ng (>= 47.0.13-1~),
-         gnome-shell-extension-ubuntu-tiling-assistant (>= 50-1ubuntu1~),
-         gnome-shell-extension-ubuntu-dock (>= 99ubuntu3~),
+Depends: gnome-shell-extension-appindicator,
+         gnome-shell-extension-desktop-icons-ng,
+         gnome-shell-extension-ubuntu-tiling-assistant,
+         gnome-shell-extension-ubuntu-dock,
          ${misc:Depends}
 Suggests: gnome-shell-extension-prefs
 Description: Ubuntu official Extensions to extend functionality of GNOME Shell
