@@ -3,3 +3,7 @@ debian/.debhelper/
 debian/debhelper-build-stamp
 debian/files
 debian/gnome-shell-ubuntu-extensions*
+subprojects/*
+!subprojects/*.wrap
+!subprojects/packagefiles
+!subprojects/packagefiles/**

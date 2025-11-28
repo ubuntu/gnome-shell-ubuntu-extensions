@@ -1,0 +1,9 @@
+[wrap-git]
+directory = tiling-assistant
+url = https://github.com/Leleat/Tiling-Assistant.git
+revision = v53
+depth = 1
+patch_directory = tiling-assistant
+
+diff_files =
+    patches/tiling-assistant/tilingWindowManager-Override-window-constraints-style.patch

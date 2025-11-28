@@ -1,0 +1,39 @@
+From: Fabio Augusto De Muzio Tobich <ftobich@debian.org>
+Date: Fri, 10 Feb 2023 13:33:39 +0100
+Subject: patch to update the locale files
+
+Forwarded: not-needed
+Last-Update: 2021-10-15
+---
+ update-locale.sh | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+ create mode 100755 update-locale.sh
+
+diff --git a/update-locale.sh b/update-locale.sh
+new file mode 100755
+index 0000000..cf372ab
+--- /dev/null
++++ b/update-locale.sh
+@@ -0,0 +1,22 @@
++#!/usr/bin/env sh
++
++set -ex
++
++mainpot=translations/main.pot
++pot=${EXTENSION_UUID}.pot
++
++cp $mainpot ${EXTENSION_UUID}/$pot
++
++for i in translations/*; do
++	locale_lang=$(echo $i | sed s/'^translations'/'locale'/ | cut -d'.' -f1)
++	if [ "$locale_lang" != "locale/main" ]; then
++		mkdir -p ${EXTENSION_UUID}/$locale_lang/LC_MESSAGES
++		cp -f $i ${EXTENSION_UUID}/$locale_lang/LC_MESSAGES/${EXTENSION_UUID}.po
++		cd ${EXTENSION_UUID}
++		po=$locale_lang/LC_MESSAGES/${EXTENSION_UUID}.po
++		echo $po
++		msgmerge --backup=off -U $po $pot
++		msgfmt $po -o ${po%po}mo
++		cd ..
++	fi
++done

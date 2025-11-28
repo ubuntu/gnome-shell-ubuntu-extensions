@@ -1,0 +1,9 @@
+[wrap-git]
+directory = appindicators
+url = https://github.com/ubuntu/gnome-shell-extension-appindicator.git
+revision = v61
+depth = 1
+
+diff_files =
+    patches/appindicators/metadata-use-appindicator-namespace-and-naming.patch,
+    patches/appindicators/lint-Update-rules-to-work-with-older-debian-eslint.patch
