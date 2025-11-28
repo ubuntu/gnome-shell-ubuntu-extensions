@@ -1,0 +1,34 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Thu, 17 Aug 2023 04:53:20 +0200
+Subject: lint: Update rules to work with older debian eslint
+
+---
+ lint/eslintrc-gjs.yml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/lint/eslintrc-gjs.yml b/lint/eslintrc-gjs.yml
+index 9dfc3bc..4081509 100644
+--- a/lint/eslintrc-gjs.yml
++++ b/lint/eslintrc-gjs.yml
+@@ -2,7 +2,8 @@
+ # SPDX-License-Identifier: MIT OR LGPL-2.0-or-later
+ # SPDX-FileCopyrightText: 2018 Claudio André <claudioandre.br@gmail.com>
+ env:
+-  es2021: true
++  # FIXME: Debian does not support es2021 yet
++  es2020: true
+ extends: 'eslint:recommended'
+ rules:
+   array-bracket-newline:
+diff --git a/.eslintrc.yml b/.eslintrc.yml
+index e124ad4..b7928e6 100644
+--- a/.eslintrc.yml
++++ b/.eslintrc.yml
+@@ -1,5 +1,5 @@
+-ignorePatterns:
+-  - _build/**
++#ignorePatterns:
++#  - _build/**
+ 
+ extends:
+  - ./lint/eslintrc-gjs.yml
