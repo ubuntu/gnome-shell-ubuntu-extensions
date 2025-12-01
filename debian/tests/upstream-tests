@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eux
+
+# Define cleanup function
+cleanup() {
+    exit_code=$?
+    cp -afr obj-*/meson-logs "$AUTOPKGTEST_ARTIFACTS"
+    exit $exit_code
+}
+
+trap cleanup EXIT
+
+dh_auto_configure
+dh_auto_test
