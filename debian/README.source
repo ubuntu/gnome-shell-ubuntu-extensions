@@ -1,0 +1,21 @@
+The extensions sources are managed as meson subprojects, in order to be able
+to maintain the extensions independently, but at the same time to provide and
+single point of control if their versions (the subprojects wrap files).
+
+As per this, this package sources are meant to be generated using
+gbp-buildpackage as it allows to define pre-build hooks that are required to
+generate the full source package.
+
+So:
+ - This relies on gbp-buildpackage
+ - To update to a new sub-project you need to change the subproject/*.wrap files
+ - Gbp will call `meson subprojects download` as part of the build process,
+   ensuring that all the subprojects are matching the wrap files expectations.
+
+Patches to subprojects can be either applied by:
+ - Explicitly picking an upstream commit as wrap file revision
+ - Adding a diff file to the wrap files
+ - Use another git branch or fork with only fixes applied on top
+
+In any case the generated source package will contain the contents as it will be
+built and shipped, making it easier for reviewers to understand the changes.

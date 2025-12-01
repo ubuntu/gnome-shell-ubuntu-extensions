@@ -1,0 +1,2 @@
+# These scripts are run from GNOME Shell and we want it to pick the proper gjs binary to launch them.
+script-not-executable [usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com/locationsWorker.js]

@@ -3,4 +3,22 @@
 %:
 	dh $@
 
+execute_after_dh_auto_install:
+	find debian -name gschemas.compiled -print -delete
+
+execute_after_dh_install:
+	dh_apparmor --profile-name=desktop-icons-ng
+
+override_dh_fixperms:
+	dh_fixperms \
+		-XcreateThumbnail.js \
+		-Xding.js \
+		$(NULL)
+
 override_dh_gnome_clean:
+	# Ensure subprojects are populated.
+	find subprojects -name .meson-subproject-wrap-hash.txt | grep -qs .
+
+update-subprojects:
+	meson subprojects purge --confirm
+	meson subprojects download
