@@ -45,3 +45,18 @@ to understand the GNOME shell version we target to we use this versioning schema
   +----------------- GNOME Shell release major version (e.g. 49)
 
 So for example: 49.25.10.0ubuntu
+
+## Track runtime dependencies
+
+To help tracking runtime dependencies, debian/gjs-check-runtime-dependencies.sh
+is provided, and it allows to help finding the runtime dependencies for the js
+files.
+
+Note that this tool result still requires manual review, but it can be launched
+in two modes:
+
+    # List modules dependencies and checks if they are available on system
+    debian/gjs-check-runtime-dependencies.sh . check
+
+    # Checks the dependencies and lists the packages that are providing them
+    debian/gjs-check-runtime-dependencies.sh . dependencies
