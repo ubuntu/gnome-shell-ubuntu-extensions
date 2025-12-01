@@ -8,6 +8,11 @@ set -eu
 sources_root=${1:-.}
 action=${2:-invalid-action}
 
+if ! command -v gjs >/dev/null; then
+    echo "gjs is required, but was not found"
+    exit 1
+fi
+
 ignored_typelibs=(
     AppIndicator3
     Clutter
@@ -89,17 +94,14 @@ function check_dependencies() {
             version=${typelib#*-}
         fi
 
-        local args=(
-            gi-inspect-typelib
-            --print-typelibs
-            "$namespace"
-        )
-
+        local code=()
         if [ -n "$version" ]; then
-            args+=(--typelib-version="$version")
+            code+=("imports.gi.versions.$namespace = '$version'")
         fi
 
-        if ! "${args[@]}" &>/dev/null; then
+        code+=("imports.gi.${namespace}")
+
+        if ! gjs -c "$(printf "%s;" "${code[@]}")" 2>/dev/null; then
             failed+=("$typelib")
             continue
         fi
