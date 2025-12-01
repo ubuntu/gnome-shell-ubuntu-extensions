@@ -4,7 +4,17 @@ Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Uploaders: Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: debhelper-compat (= 13),
-               dh-sequence-gnome (>= 0.22),
+               dh-apparmor,
+               dh-sequence-gnome,
+               dh-translations,
+               eslint <!nocheck>,
+               jq,
+               libglib2.0-bin,
+               meson,
+               node-chalk <!nocheck>,
+               node-js-yaml <!nocheck>,
+               node-strip-ansi <!nocheck>,
+               sassc,
 Standards-Version: 4.7.2
 Vcs-Browser: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 Vcs-Git: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
@@ -12,13 +22,39 @@ Homepage: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 
 Package: gnome-shell-ubuntu-extensions
 Architecture: all
-Depends: gnome-shell-extension-appindicator,
-         gnome-shell-extension-desktop-icons-ng,
-         gnome-shell-extension-ubuntu-tiling-assistant,
-         gnome-shell-extension-ubuntu-dock,
-         ${misc:Depends}
-Suggests: gnome-shell-extension-prefs
+Depends: gnome-shell,
+         gir1.2-atk-1.0,
+         gir1.2-freedesktop,
+         gir1.2-gdkpixbuf-2.0,
+         gir1.2-adw-1,
+         gir1.2-glib-2.0,
+         gir1.2-gnomeautoar-0.1,
+         gir1.2-gnomedesktop-3.0,
+         gir1.2-gtk-3.0,
+         gir1.2-gtk-4.0,
+         gir1.2-pango-1.0,
+         gjs,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: gir1.2-dbusmenu-glib-0.4,
+Suggests: gnome-shell-extension-prefs,
+          libappindicator3-1,
+          libayatana-appindicator3-1,
+Breaks: gnome-shell-extension-appindicator,
+        gnome-shell-extension-desktop-icons-ng,
+        gnome-shell-extension-ubuntu-tiling-assistant,
+        gnome-shell-extension-ubuntu-dock,
+Replaces: gnome-shell-extension-appindicator,
+          gnome-shell-extension-desktop-icons-ng,
+          gnome-shell-extension-ubuntu-tiling-assistant,
+          gnome-shell-extension-ubuntu-dock,
 Description: Ubuntu official Extensions to extend functionality of GNOME Shell
- GNOME Shell is extensible using extensions. This serves both as a dependency
- package for the official Ubuntu GNOME Shell extensions and includes some of
- them.
+ GNOME Shell is extensible using extensions. This package contains
+ all the official Ubuntu GNOME Shell extensions.
+ .
+ All the ubuntu extensions that are officially supported are included in this
+ package, and in particular:
+  - AppIndicators
+  - Desktop Icons NG
+  - Dash to Dock
+  - Tiling Assistant
