@@ -22,7 +22,8 @@ Homepage: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 
 Package: gnome-shell-ubuntu-extensions
 Architecture: all
-Depends: gnome-shell,
+Depends: gnome-shell (>= ${gnome:MinimumVersion}~),
+         gnome-shell (<< ${gnome:MaximumVersion}~),
          gir1.2-atk-1.0,
          gir1.2-freedesktop,
          gir1.2-gdkpixbuf-2.0,
