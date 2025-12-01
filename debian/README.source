@@ -19,3 +19,18 @@ Patches to subprojects can be either applied by:
 
 In any case the generated source package will contain the contents as it will be
 built and shipped, making it easier for reviewers to understand the changes.
+
+## Track runtime dependencies
+
+To help tracking runtime dependencies, debian/gjs-check-runtime-dependencies.sh
+is provided, and it allows to help finding the runtime dependencies for the js
+files.
+
+Note that this tool result still requires manual review, but it can be launched
+in two modes:
+
+    # List modules dependencies and checks if they are available on system
+    debian/gjs-check-runtime-dependencies.sh . check
+
+    # Checks the dependencies and lists the packages that are providing them
+    debian/gjs-check-runtime-dependencies.sh . dependencies
