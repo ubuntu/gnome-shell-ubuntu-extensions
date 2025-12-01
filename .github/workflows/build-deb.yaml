@@ -1,4 +1,4 @@
-name: Build debian packages
+name: Build and test debian packages
 
 on:
   push:
@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       UBUNTU_VERSION: devel
+
+    outputs:
+      run-id: ${{ github.run_id }}
+      pkg-dsc:  ${{ steps.outputs.outputs.pkg-dsc }}
 
     steps:
       - name: Checkout code
@@ -59,3 +63,64 @@ jobs:
           docker-image: ubuntu:${{ env.UBUNTU_VERSION }}
           from-sources-file: ${{ steps.sources-prepare.outputs.pkg-dsc-path }}
           extra-source-build-deps: ''
+
+      - name: Generate outputs
+        id: outputs
+        run: |
+          (
+            echo "pkg-name=${{ env.PKG_NAME }}"
+            echo "pkg-version=${{ env.PKG_VERSION }}"
+            echo "pkg-dsc=${{ steps.sources-prepare.outputs.pkg-dsc }}"
+          ) >> "${GITHUB_OUTPUT}"
+
+  run-autopkgtests:
+    name: Run autopkgtests
+    runs-on: ubuntu-latest
+    needs:
+      - build-deb-packages
+    strategy:
+      fail-fast: false
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v5
+      with:
+        run-id: ${{ needs.build-deb-packages.outputs.run-id }}
+        merge-multiple: true
+
+    # FIXME: Drop
+    - run: find
+
+    - name: Run autopkgtests
+      uses: canonical/desktop-engineering/gh-actions/common/run-autopkgtest@main
+      with:
+        lxd-image: ubuntu:devel
+        source-changes: ${{ needs.build-deb-packages.outputs.pkg-dsc }}
+        # FIXME: Drop this when the resolution will be stable again
+        #autopkgtest-args: |
+        #  --setup-commands='sed -i s,archive.ubuntu.com,azure.archive.ubuntu.com,g /etc/apt/sources.list.d/ubuntu.sources && apt update -y'
+
+  run-gnome-shell-autopkgtests:
+    name: Run GNOME Shell autopkgtests
+    runs-on: ubuntu-latest
+    needs:
+      - build-deb-packages
+    strategy:
+      fail-fast: false
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v5
+      with:
+        run-id: ${{ needs.build-deb-packages.outputs.run-id }}
+        merge-multiple: true
+
+    # FIXME: Drop
+    - run: find
+
+        # ACtually support running autopkgtests against other packages with the provided debs!
+    - name: Run gnome-shell autopkgtests
+      uses: 3v1n0/desktop-engineering/gh-actions/common/run-autopkgtest@autopkgtests-source-name
+      with:
+        lxd-image: ubuntu:devel
+        source-name: gnome-shell
+        autopkgtest-args: |
+          *.deb --setup-commands-boot='sed -i s,archive.ubuntu.com,azure.archive.ubuntu.com,g /etc/apt/sources.list.d/ubuntu.sources && apt update -y'
