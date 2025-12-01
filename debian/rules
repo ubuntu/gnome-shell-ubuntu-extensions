@@ -1,10 +1,23 @@
 #!/usr/bin/make -f
 
+include /usr/share/dpkg/pkg-info.mk
+
+DEB_VERSION_UPSTREAM_MAJOR := $(firstword $(subst ., ,$(DEB_VERSION_UPSTREAM)))
+
 %:
 	dh $@
 
 execute_after_dh_auto_install:
 	find debian -name gschemas.compiled -print -delete
+
+override_dh_gencontrol:
+	dh_gencontrol -- \
+		-Vgnome:MinimumVersion=$(shell \
+			debian/find-supported-shell-versions.py $(DEB_SOURCE) --min-version \
+			--must-support $(DEB_VERSION_UPSTREAM_MAJOR)) \
+		-Vgnome:MaximumVersion=$(shell \
+			debian/find-supported-shell-versions.py $(DEB_SOURCE) --max-version) \
+		$(NULL)
 
 execute_after_dh_install:
 	dh_apparmor --profile-name=desktop-icons-ng
