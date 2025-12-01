@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eux
+
+debian/gjs-check-runtime-dependencies.sh . check

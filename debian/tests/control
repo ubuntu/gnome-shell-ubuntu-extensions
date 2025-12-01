@@ -1,0 +1,9 @@
+Tests: upstream-tests
+Depends: @builddeps@,
+Restrictions: allow-stderr
+
+Tests: dependency-tests
+Classes: desktop
+Depends: @,
+         @recommends@,
+Restrictions: allow-stderr
