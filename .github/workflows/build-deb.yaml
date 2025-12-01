@@ -1,0 +1,61 @@
+name: Build debian packages
+
+on:
+  push:
+    branches: "*"
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-deb-packages:
+    name: Ubuntu Devel
+    runs-on: ubuntu-latest
+    env:
+      UBUNTU_VERSION: devel
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Prepare sources
+        uses: kohlerdominik/docker-run-action@v2.0.0
+        id: sources-prepare
+        with:
+          image: ubuntu:${{ env.UBUNTU_VERSION }}
+          environment: |
+            TERM=dumb
+            DEBIAN_FRONTEND=noninteractive
+            DEBCONF_NONINTERACTIVE_SEEN=true
+            DEB_BUILD_PROFILE=nocheck
+          volumes: |
+            ${{ github.workspace }}:${{ github.workspace }}
+          workdir: ${{ github.workspace }}
+          shell: bash
+          run: |
+            apt update -y
+            apt install -y git-buildpackage
+            apt build-dep -y . --build-profiles=${DEB_BUILD_PROFILE}
+            mkdir sources
+            git config --system --add safe.directory "${PWD}"
+            gbp buildpackage --git-export-dir="$PWD/sources" \
+              --git-ignore-branch -S --no-sign --build-profiles=${DEB_BUILD_PROFILE}
+            find sources
+            pkg_dsc=$(ls -1 sources/*.dsc)
+            (
+              echo "pkg-dsc=$(basename "${pkg_dsc}")"
+              echo "pkg-dsc-path=${{ github.workspace }}/${pkg_dsc}"
+            ) >> "${GITHUB_OUTPUT}"
+
+      - name: Save source package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: debian-source
+          path: ${{ github.workspace }}/sources
+          if-no-files-found: error
+
+      - name: Build debian packages
+        uses: canonical/desktop-engineering/gh-actions/common/build-debian@main
+        with:
+          docker-image: ubuntu:${{ env.UBUNTU_VERSION }}
+          from-sources-file: ${{ steps.sources-prepare.outputs.pkg-dsc-path }}
+          extra-source-build-deps: ''
