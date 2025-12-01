@@ -27,3 +27,14 @@ Extensions must be added using meson subprojects, via
 Wrap files live under `subprojects/*.wrap`.
 
 They must updated them to point to different releases.
+
+## Packaging
+
+This project is intended to integrate to be used with `git-buildpackage` tool
+in order to update the subprojects and build debian packages.
+
+    # Build a source package
+    gbp buildpackage -S
+
+    # Build the binary package
+    gbp buildpackage -b # [ ... further builder options ]
