@@ -32,3 +32,16 @@ Patches to subprojects can be either applied by:
 
 In any case the generated source package will contain the contents as it will be
 built and shipped, making it easier for reviewers to understand the changes.
+
+## Versioning system
+
+In order to make automated GNOME shell versions checks to work and to make easier
+to understand the GNOME shell version we target to we use this versioning schema:
+
+  G . U.R . Mubuntu
+  |    |    |
+  |    |    +------- Micro release updates (starting from 0)
+  |    +------------ Ubuntu Release version we target to (e.g. 25.10)
+  +----------------- GNOME Shell release major version (e.g. 49)
+
+So for example: 49.25.10.0ubuntu
