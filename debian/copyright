@@ -1,21 +1,47 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: gnome-shell-ubuntu-extensions
-Upstream-Contact: 2023 Marco Trevisan <marco@ubuntu.com>
+Upstream-Contact: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 Source: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 
 Files: *
 Copyright:
-    2023 Marco Trevisan <marco@ubuntu.com>
+    2023-2025 Marco Trevisan <marco@ubuntu.com>
 License: GPL-3+
- This package is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 3 of the License, or
- (at your option) any later version.
- .
- This package is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
- .
- On Debian systems, the complete text of the GNU General
- Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+Files: subprojects/appindicators/*
+Copyright:
+    2011 Giovanni Campagna
+    2013-2014 Jonas Kümmerlin <rgcjonas@gmail.com>
+    2016-2019 Jan Niklas Hasse <jhasse@bixense.com>
+    2017-2025 Marco Trevisan <mail@3v1n0.net>
+License: GPL-2+
+
+Files: subprojects/dash-to-dock/*
+Copyright:
+    2012-2022 Michele Gaio <micxgx@gmail.com>
+    2017-2025 Marco Trevisan <mail@3v1n0.net>
+    2021-2025 Daniel van Vugt <daniel.van.vugt@canonical.com>
+License: GPL-3
+
+Files: subprojects/desktop-icons-ng/*
+Copyright:
+    © 2019-2025 Sergio Costas <rastersoft@gmail.com>
+    Based on code original (C) Carlos Soriano
+License: GPL-3
+
+Files: subprojects/tiling-assistant/*
+Copyright:
+    2020-2025 Leleat <Leleat@GitHub>
+License: GPL-2+
+
+License: GPL-2+
+    On Debian systems, the complete text of the GNU General Public License
+    version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+License: GPL-3
+    On Debian systems, the complete text of the GNU General Public License
+    version 3 can be found in `/usr/share/common-licenses/GPL-3'.
+
+License: GPL-3+
+    On Debian systems, the complete text of the GNU General Public License
+    version 3 can be found in `/usr/share/common-licenses/GPL-3'.
