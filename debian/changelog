@@ -1,3 +1,25 @@
+gnome-shell-ubuntu-extensions (49.26.04.0ubuntu) UNRELEASED; urgency=medium
+
+  * build: Include all supported extensions as meson subprojects
+    Manage all the extensions as a meson subproject, so that we can package
+    them atomically and ensure that the whole ecosystem works when tested.
+    Reduce patches when possible, using build system overrides.
+  * debian/control: Update standards versions
+  * debian/control: Remove deprecated rules requires root
+  * debian: Update packaging to use subprojects sources
+  * debian: Automate computing the required gnome-shell versions
+    Find the minimum and maximum gnome-shell versions we support by
+    inspecting all the metadata files that we have installed, so that there
+    is no risk that we produce a package that is installable if any of the
+    extension is not supported by the gnome-shell version that we target
+  * debian/README.source: Document the project structure
+  * debian/gjs-check-runtime-dependencies.sh:
+    Simple tool to check and track runtime dependencies
+  * debian/tests: Add autopkgtest
+  * ci: Add workflow that checks the package build
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Dec 2025 21:23:07 +0100
+
 gnome-shell-ubuntu-extensions (49.0) questing; urgency=medium
 
   * Update for GNOME Shell 49 and later, removing strict version requirements
