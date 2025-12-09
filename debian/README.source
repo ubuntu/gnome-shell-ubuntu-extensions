@@ -10,6 +10,7 @@ single point of control of their versions (the ./subprojects/*.wrap files).
  - Each wrap file must point to the extension git repository (or ubuntu fork)
  - Wrap files MUST reference a specific `revision` that points to an upstream
    git tag or commit SHA. Branch names or HEAD are not valid values.
+   This is ensured by a CI job.
  - Patches can be added using the wrap system in:
    - subprojects/packagefiles/patches/<extension>/*.patch
 
