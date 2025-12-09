@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (49.26.04.0ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (49.26.04.0ubuntu) resolute; urgency=medium
 
   * build: Include all supported extensions as meson subprojects
     Manage all the extensions as a meson subproject, so that we can package
@@ -18,7 +18,7 @@ gnome-shell-ubuntu-extensions (49.26.04.0ubuntu) UNRELEASED; urgency=medium
   * debian/tests: Add autopkgtest
   * ci: Add workflow that checks the package build
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 04 Dec 2025 21:23:07 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 09 Dec 2025 18:48:13 +0100
 
 gnome-shell-ubuntu-extensions (49.0) questing; urgency=medium
 
