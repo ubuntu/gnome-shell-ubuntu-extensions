@@ -38,3 +38,5 @@ in order to update the subprojects and build debian packages.
 
     # Build the binary package
     gbp buildpackage -b # [ ... further builder options ]
+
+Further package-related documentation in [`debian/README.source`](debian/README.source).
