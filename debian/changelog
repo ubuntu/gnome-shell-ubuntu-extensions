@@ -1,3 +1,27 @@
+gnome-shell-ubuntu-extensions (49.26.04.1ubuntu) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/control: Use Conflicts instead of Breaks.
+  * subprojects/tiling-assisant: Use latest upstream commit.
+    It includes the same patch we include in ubuntu right now to support
+    GNOME 50, plus some further upstream fixes (related to it)
+  * desktop-icons-ng: Update to 49.99.0:
+    - Support for Gnome Shell 50.alpha
+    - Disable search autohide if keyboard or screen reader A11Y are enabled
+    - Added A11Y roles to the home and trash folders
+    - Fixed accessibility for .desktop files
+    - Adjust margins in RTL systems (thanks to Sundeep Mediratta)
+    - Use the accent color if available
+  * README: Point to debian-specific packaging docs
+  * debian/copyright: Update copyright files to be compliant with lrc
+  * debian/copyright: Include missing license texts
+  * debian/find-supported-shell-versions: Fix computation of the max version
+
+  [ Adrian Dombeck ]
+  * debian/lrc.config: Exclude appindicators patches
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 28 Jan 2026 15:11:29 +0100
+
 gnome-shell-ubuntu-extensions (49.26.04.0ubuntu) resolute; urgency=medium
 
   * build: Include all supported extensions as meson subprojects
