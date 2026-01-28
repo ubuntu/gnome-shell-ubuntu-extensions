@@ -16,6 +16,18 @@ Copyright:
     2017-2025 Marco Trevisan <mail@3v1n0.net>
 License: GPL-2+
 
+Files:
+    subprojects/appindicators/LICENSE
+Copyright:
+    2013-2014 Jonas Kümmerlin <rgcjonas@gmail.com>
+License: GPL-2
+
+Files:
+    subprojects/appindicators/meson.build
+Copyright:
+    2017-2025 Marco Trevisan <mail@3v1n0.net>
+License: GPL-2
+
 Files: subprojects/dash-to-dock/*
 Copyright:
     2012-2022 Michele Gaio <micxgx@gmail.com>
@@ -29,10 +41,33 @@ Copyright:
     Based on code original (C) Carlos Soriano
 License: GPL-3
 
+Files: subprojects/desktop-icons-ng/prefs.js
+Copyright:
+    2019-2025 Sergio Costas <rastersoft@gmail.com>
+License: GPL-3+
+
 Files: subprojects/tiling-assistant/*
 Copyright:
     2020-2025 Leleat <Leleat@GitHub>
+License: GPL-2
+
+Files: subprojects/tiling-assistant/tiling-assistant@leleat-on-github/extension.js
+Copyright:
+    2020-2025 Leleat <Leleat@GitHub>
 License: GPL-2+
+
+Files:
+  subprojects/dash-to-dock/desktopIconsIntegration.js
+  subprojects/desktop-icons-ng/app/desktopIconsIntegration.js
+Copyright:
+    2021 Sergio Costas <rastersoft@gmail.com>
+License: BSD-1-Clause
+
+Files:
+    subprojects/*/lint/eslintrc-gjs.yml
+Copyright:
+    2018 Claudio André <claudioandre.br@gmail.com>
+License: Expat
 
 License: GPL-2+
     On Debian systems, the complete text of the GNU General Public License
