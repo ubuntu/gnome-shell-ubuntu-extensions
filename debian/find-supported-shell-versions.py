@@ -18,7 +18,7 @@ def compute_shell_versions(package_name, needs_version):
         print(f"No files matched pattern: {pattern}", file=sys.stderr)
         sys.exit(1)
 
-    max_version = 0
+    max_version = sys.maxsize
     min_version = 0
 
     for fname in matches:
@@ -29,11 +29,11 @@ def compute_shell_versions(package_name, needs_version):
                 raise UnsupportedShellVersionError(
                     f"{fname} does not support shell version {needs_version}")
 
-            max_version = max(max_version, *versions)
+            max_version = min(max_version, max(versions))
             min_version = max(min(versions), min_version)
 
     assert min_version != 0
-    assert max_version != 0
+    assert max_version != sys.maxsize
 
     return (
         min_version,
