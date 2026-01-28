@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (49.26.04.1ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (49.26.04.1ubuntu) resolute; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * debian/control: Use Conflicts instead of Breaks.
