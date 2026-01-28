@@ -1,7 +1,7 @@
 [wrap-git]
 directory = tiling-assistant
 url = https://github.com/Leleat/Tiling-Assistant.git
-revision = v53
+revision = be484f82b11f5ab839c4e0b1195a77109292597d
 depth = 1
 patch_directory = tiling-assistant
 
