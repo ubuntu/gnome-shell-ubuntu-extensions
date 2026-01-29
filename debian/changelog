@@ -1,3 +1,10 @@
+gnome-shell-ubuntu-extensions (49.26.04.2ubuntu) resolute; urgency=medium
+
+  * Fix previous upload, the source needs to be build using gbp-buildpackage
+    since it relies on prebuild hooks to fetch the content
+
+ -- Sebastien Bacher <seb128@ubuntu.com>  Thu, 29 Jan 2026 13:48:29 +0100
+
 gnome-shell-ubuntu-extensions (49.26.04.1ubuntu) resolute; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
