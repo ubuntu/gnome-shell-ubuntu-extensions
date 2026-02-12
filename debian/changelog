@@ -1,3 +1,13 @@
+gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) UNRELEASED; urgency=medium
+
+  * subprojects/tiling-assistant: Bump to v54
+  * subprojects: Add snapd-prompting extension
+  * Add breaks/replaces on gnome-shell 50~beta
+  * subprojects/appindicators: Bump to v63
+  * subprojects/dash-to-dock: Bump version of dash 2 dock
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 12 Feb 2026 06:08:14 +0100
+
 gnome-shell-ubuntu-extensions (49.26.04.2ubuntu) resolute; urgency=medium
 
   * Fix previous upload, the source needs to be build using gbp-buildpackage
