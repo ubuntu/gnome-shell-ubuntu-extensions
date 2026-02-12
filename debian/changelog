@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) resolute; urgency=medium
 
   * subprojects/tiling-assistant: Bump to v54
   * subprojects: Add snapd-prompting extension
@@ -6,7 +6,7 @@ gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) UNRELEASED; urgency=medium
   * subprojects/appindicators: Bump to v63
   * subprojects/dash-to-dock: Bump version of dash 2 dock
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 12 Feb 2026 06:08:14 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 12 Feb 2026 06:44:25 +0100
 
 gnome-shell-ubuntu-extensions (49.26.04.2ubuntu) resolute; urgency=medium
 
