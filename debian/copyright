@@ -56,6 +56,16 @@ Copyright:
     2020-2025 Leleat <Leleat@GitHub>
 License: GPL-2+
 
+Files: subprojects/snapd-prompting/*
+Copyright:
+    2025-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-2+
+
+Files: subprojects/snapd-prompting/meson.build
+Copyright:
+    2025-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-2
+
 Files:
   subprojects/dash-to-dock/desktopIconsIntegration.js
   subprojects/desktop-icons-ng/app/desktopIconsIntegration.js

@@ -9,6 +9,9 @@ extensions = {
   ],
   'desktop-icons-ng': [],
   'dash-to-dock': [],
+  'snapd-prompting': [
+      'local_install=disabled',
+  ],
   'tiling-assistant': [],
 }
 

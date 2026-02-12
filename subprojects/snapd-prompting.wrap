@@ -1,0 +1,6 @@
+[wrap-git]
+directory = snapd-prompting
+url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-extension-snapd-prompting.git
+revision = v2
+depth = 1
+
