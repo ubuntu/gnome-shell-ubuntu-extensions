@@ -12,6 +12,9 @@ extensions = {
   'snapd-prompting': [
       'local_install=disabled',
   ],
+  'snapd-search-provider': [
+      'local_install=disabled',
+  ],
   'tiling-assistant': [],
 }
 

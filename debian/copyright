@@ -66,6 +66,16 @@ Copyright:
     2025-2026 Marco Trevisan <marco@ubuntu.com>
 License: GPL-2
 
+Files: subprojects/snapd-search-provider/*
+Copyright:
+    2025-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-2+ or GPL-3
+
+Files: subprojects/snapd-search-provider/meson.build
+Copyright:
+    2025-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-3
+
 Files:
   subprojects/dash-to-dock/desktopIconsIntegration.js
   subprojects/desktop-icons-ng/app/desktopIconsIntegration.js
