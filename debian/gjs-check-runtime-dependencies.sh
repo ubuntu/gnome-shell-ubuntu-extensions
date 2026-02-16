@@ -38,16 +38,17 @@ function in_array() {
 }
 
 function introspect_typelibs() {
+    local introspect_path=$1
     local included_typelibs=()
     mapfile -t included_typelibs < <(
-        grep "gi://.*" "$sources_root"/subprojects -rho |
+        grep "gi://.*" "${introspect_path}" -rho |
         sed "s,gi://\([A-Za-z0-9]\+\)\(?version=\([0-9\.]\+\)\)\?.*,\1-\3,g" |
         sort -u
     )
 
     local imported_typelib=()
     mapfile -t imported_typelib < <(
-        grep "imports\.gi\.[A-Za-z0-9]\+" subprojects/ -rho |
+        grep "imports\.gi\.[A-Za-z0-9]\+" "${introspect_path}" -rho |
         sed "s,imports\.gi\.\(.\+\),\1,g" |
         sort -u
     )
@@ -161,10 +162,10 @@ function find_dependencies() {
 typelibs=()
 
 if [ "$action" = "check" ]; then
-    introspect_typelibs
+    introspect_typelibs "${sources_root}"/subprojects
     check_dependencies
 elif [ "$action" = "dependencies" ]; then
-    introspect_typelibs
+    introspect_typelibs "${sources_root}"/subprojects
     find_dependencies
 else
     echo "Unknown action: $action"
