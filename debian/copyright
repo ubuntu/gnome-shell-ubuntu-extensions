@@ -76,6 +76,21 @@ Copyright:
     2025-2026 Marco Trevisan <marco@ubuntu.com>
 License: GPL-3
 
+Files: subprojects/web-search-provider/*
+Copyright:
+    2023-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-2+ or GPL-3
+
+Files: subprojects/web-search-provider/web-search-provider@ubuntu.com/extension.js
+Copyright:
+    2023-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-2+
+
+Files: subprojects/web-search-provider/meson.build
+Copyright:
+    2025-2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-3
+
 Files:
   subprojects/dash-to-dock/desktopIconsIntegration.js
   subprojects/desktop-icons-ng/app/desktopIconsIntegration.js

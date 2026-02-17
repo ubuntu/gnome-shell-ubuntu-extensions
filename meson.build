@@ -16,6 +16,9 @@ extensions = {
       'local_install=disabled',
   ],
   'tiling-assistant': [],
+  'web-search-provider': [
+      'local_install=disabled',
+  ],
 }
 
 foreach extension, options : extensions
