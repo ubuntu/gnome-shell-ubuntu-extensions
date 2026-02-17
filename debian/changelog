@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) resolute; urgency=medium
 
   * debian/gjs-check-runtime-dependencies: Support parsing multiple paths
   * supbprojects: Include snapd search provider extension
@@ -10,7 +10,7 @@ gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) UNRELEASED; urgency=medium
     dh_translations is not good enough when it comes to handle subprojects
   * debian/control: Use dh-sequence-translations
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 17 Feb 2026 05:12:31 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 17 Feb 2026 05:12:42 +0100
 
 gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) resolute; urgency=medium
 
