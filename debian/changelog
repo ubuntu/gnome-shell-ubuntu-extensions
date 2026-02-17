@@ -1,3 +1,17 @@
+gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) UNRELEASED; urgency=medium
+
+  * debian/gjs-check-runtime-dependencies: Support parsing multiple paths
+  * supbprojects: Include snapd search provider extension
+  * d/control: Add dependency on gir1.2-snapd-2
+  * subprojects: Include web-search-provider extension
+  * tiling-assistant: Add LINGUAS and POTFILES.
+    Ideally we should generate these, but this is good enough for now
+  * debian/rules: Override dh_translations to generate pot files
+    dh_translations is not good enough when it comes to handle subprojects
+  * debian/control: Use dh-sequence-translations
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 17 Feb 2026 05:12:31 +0100
+
 gnome-shell-ubuntu-extensions (50.26.04.1ubuntu) resolute; urgency=medium
 
   * subprojects/tiling-assistant: Bump to v54
