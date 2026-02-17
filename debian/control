@@ -6,7 +6,7 @@ Uploaders: Marco Trevisan (Treviño) <marco@ubuntu.com>
 Build-Depends: debhelper-compat (= 13),
                dh-apparmor,
                dh-sequence-gnome,
-               dh-translations,
+               dh-sequence-translations,
                eslint <!nocheck>,
                jq,
                libglib2.0-bin,
