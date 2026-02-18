@@ -1,3 +1,18 @@
+gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) UNRELEASED; urgency=medium
+
+  [ Sergio Costas Rodriguez ]
+  * Update DING to 49.99.1.
+    This version supports changing the icon size using the keyboard,
+    and one extra translation.
+
+  [ Marco Trevisan (Treviño) ]
+  * debian/control: Adjust Breaks/Replace on gnome-shell-common.
+    The prompting extension was in the common package, as it should have
+    been so we need to break on that
+  * debian/gbp.conf: Set per-project fake cleaner
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 18 Feb 2026 16:45:53 +0100
+
 gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) resolute; urgency=medium
 
   * debian/gjs-check-runtime-dependencies: Support parsing multiple paths
