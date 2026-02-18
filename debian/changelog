@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) resolute; urgency=medium
 
   [ Sergio Costas Rodriguez ]
   * Update DING to 49.99.1.
@@ -11,7 +11,7 @@ gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) UNRELEASED; urgency=medium
     been so we need to break on that
   * debian/gbp.conf: Set per-project fake cleaner
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 18 Feb 2026 16:45:53 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 18 Feb 2026 16:46:46 +0100
 
 gnome-shell-ubuntu-extensions (50.26.04.2ubuntu) resolute; urgency=medium
 
