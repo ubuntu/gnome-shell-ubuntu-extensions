@@ -1,0 +1,24 @@
+diff --git a/dbusMenu.js b/dbusMenu.js
+index 52c812d..b21a837 100644
+--- a/dbusMenu.js
++++ b/dbusMenu.js
+@@ -632,6 +632,7 @@ const MenuItemFactory = {
+             shellItem, MenuItemFactory._onActivate);
+ 
+         shellItem.connect('destroy', () => {
++            // eslint-disable-next-line no-unused-expressions
+             shellItem._dbusItemCancellable?.cancel();
+             shellItem._dbusItemCancellable = null;
+             shellItem._dbusItem = null;
+diff --git a/indicatorStatusIcon.js b/indicatorStatusIcon.js
+index a80339a..7b67cb3 100644
+--- a/indicatorStatusIcon.js
++++ b/indicatorStatusIcon.js
+@@ -248,6 +248,7 @@ class IndicatorStatusIcon extends BaseStatusIcon {
+             new AppIndicator.IconActor(indicator, DEFAULT_ICON_SIZE));
+ 
+         // Disable upstream's click gesture and fall back to vfunc_button_press_event etc.
++        // eslint-disable-next-line no-unused-expressions
+         this._clickGesture?.set_enabled(false);
+ 
+         this._indicator = indicator;
