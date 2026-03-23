@@ -1,3 +1,21 @@
+gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) UNRELEASED; urgency=medium
+
+  * subprojects/pacakagefiles/dash-to-dock: Use meson to generate translations.
+    Fixes missing translations in launchpad
+  * desktop-icons-ng: Update to latest upstream commit (helps with LP: #2145766)
+  * desktop-icons: Add upstream-proposed patches to adjust selection colors
+    (LP: #2145766)
+  * appindicators: Update to latest upstream release (LP: #2080221, #2144767,
+    LP: #2145134, Helps with: lp:2080221)
+  * appindicators: Ignore wrong lint error due to old eslint in debian
+  * appindicators: Handle an upstream fix for an init failure (LP: #2144485)
+  * snapd-search-provider: Update to new upstream release (LP: #2144769,
+    LP: #2145767)
+  * dash-to-dock: Update to new upstream release
+    (LP: #1966681, #2142990, #2144460)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 23 Mar 2026 22:41:47 +0100
+
 gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) resolute; urgency=medium
 
   [ Sergio Costas Rodriguez ]
