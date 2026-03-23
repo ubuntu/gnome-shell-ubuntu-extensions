@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) resolute; urgency=medium
 
   * subprojects/pacakagefiles/dash-to-dock: Use meson to generate translations.
     Fixes missing translations in launchpad
@@ -14,7 +14,7 @@ gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) UNRELEASED; urgency=medium
   * dash-to-dock: Update to new upstream release
     (LP: #1966681, #2142990, #2144460)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 23 Mar 2026 22:41:47 +0100
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Mon, 23 Mar 2026 22:51:20 +0100
 
 gnome-shell-ubuntu-extensions (50.26.04.3ubuntu) resolute; urgency=medium
 
