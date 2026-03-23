@@ -17,6 +17,9 @@ if prefix != '/usr'
         ]).format(prefix))
 endif
 
+jq = find_program('jq', required: true)
+metadata = files('metadata.json')
+
 test('linting',
     make,
     workdir: d2d_src,
@@ -26,3 +29,5 @@ test('linting',
     ],
     # protocol: 'tap',
 )
+
+subdir('po')
