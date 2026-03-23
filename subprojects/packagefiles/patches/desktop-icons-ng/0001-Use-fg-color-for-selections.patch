@@ -1,0 +1,154 @@
+From 80bcf482de82feb80ebf4a638a6d1e051a281b7e Mon Sep 17 00:00:00 2001
+From: Sergio Costas <rastersoft@gmail.com>
+Date: Mon, 23 Mar 2026 17:23:46 +0100
+Subject: [PATCH 1/4] Use fg-color for selections
+
+This patch replaces the use of the accent color with the
+fg-color, to try to mimic Nautilus.
+---
+ app/desktopIconItem.js | 43 +++++++++++++++++-------------------------
+ app/desktopManager.js  | 12 ++++++++++--
+ app/stylesheet.css     |  7 +++----
+ 3 files changed, 30 insertions(+), 32 deletions(-)
+
+diff --git a/app/desktopIconItem.js b/app/desktopIconItem.js
+index b75d826..da97ff2 100644
+--- a/app/desktopIconItem.js
++++ b/app/desktopIconItem.js
+@@ -161,10 +161,7 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+         this.container.pack_start(this._shieldLabelEventBox, false, false, 0);
+ 
+         this._fullStyleContext = this.container.get_style_context();
+-        this._styleContext = this._iconContainer.get_style_context();
+-        this._labelStyleContext = this._labelContainer.get_style_context();
+-        this._styleContext.add_class('file-item');
+-        this._labelStyleContext.add_class('file-item');
++        this._fullStyleContext.add_class('file-item');
+ 
+         this.iconRectangle = new Gdk.Rectangle();
+         this.labelRectangle = new Gdk.Rectangle();
+@@ -380,9 +377,8 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+      ***********************/
+ 
+     _onEnter(element) {
+-        if (!this._styleContext.has_class('file-item-hover')) {
+-            this._styleContext.add_class('file-item-hover');
+-            this._labelStyleContext.add_class('file-item-hover');
++        if (!this._fullStyleContext.has_class('file-item-hover')) {
++            this._fullStyleContext.add_class('file-item-hover');
+         }
+         if (Prefs.CLICK_POLICY_SINGLE) {
+             let window = element.get_window();
+@@ -395,9 +391,8 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+ 
+     _onLeave(element) {
+         this._primaryButtonPressed = false;
+-        if (this._styleContext.has_class('file-item-hover')) {
+-            this._styleContext.remove_class('file-item-hover');
+-            this._labelStyleContext.remove_class('file-item-hover');
++        if (this._fullStyleContext.has_class('file-item-hover')) {
++            this._fullStyleContext.remove_class('file-item-hover');
+         }
+         if (Prefs.CLICK_POLICY_SINGLE) {
+             let window = element.get_window();
+@@ -428,9 +423,8 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+             this._grid.receiveMotion(this._x1, this._y1, true);
+             return;
+         }
+-        if (!this._styleContext.has_class('desktop-icons-selected')) {
+-            this._styleContext.add_class('desktop-icons-selected');
+-            this._labelStyleContext.add_class('desktop-icons-selected');
++        if (!this._fullStyleContext.has_class('desktop-icons-selected')) {
++            this._fullStyleContext.add_class('desktop-icons-selected');
+         }
+         this._grid.highLightGridAt(this._x1, this._y1);
+     }
+@@ -440,9 +434,8 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+             this._grid.receiveLeave();
+             return;
+         }
+-        if (!this._isSelected && this._styleContext.has_class('desktop-icons-selected')) {
+-            this._styleContext.remove_class('desktop-icons-selected');
+-            this._labelStyleContext.remove_class('desktop-icons-selected');
++        if (!this._isSelected && this._fullStyleContext.has_class('desktop-icons-selected')) {
++            this._fullStyleContext.remove_class('desktop-icons-selected');
+         }
+         this._grid.unHighLightGrids();
+     }
+@@ -463,23 +456,21 @@ var desktopIconItem = class desktopIconItem extends SignalManager.SignalManager
+     }
+ 
+     _setSelectedStatus() {
+-        if (this._isSelected && !this._styleContext.has_class('desktop-icons-selected')) {
+-            this._styleContext.add_class('desktop-icons-selected');
+-            this._labelStyleContext.add_class('desktop-icons-selected');
++        if (this._isSelected  && !this._fullStyleContext.has_class('desktop-icons-selected')) {
++            this._fullStyleContext.add_class('desktop-icons-selected');
+             if (!this._isKeyboardSelected) {
+                 this._containerAccessibility.grab_focus();
+             }
+         }
+-        if (!this._isSelected && this._styleContext.has_class('desktop-icons-selected')) {
+-            this._styleContext.remove_class('desktop-icons-selected');
+-            this._labelStyleContext.remove_class('desktop-icons-selected');
++        if (!this._isSelected && this._fullStyleContext.has_class('desktop-icons-selected')) {
++            this._fullStyleContext.remove_class('desktop-icons-selected');
+         }
+-        if (this._isKeyboardSelected && !this._fullStyleContext.has_class('desktop-icons-selected')) {
+-            this._fullStyleContext.add_class('desktop-icons-selected');
++        if (this._isKeyboardSelected && !this._fullStyleContext.has_class('desktop-icons-keyboard-selected')) {
++            this._fullStyleContext.add_class('desktop-icons-keyboard-selected');
+             this._containerAccessibility.grab_focus();
+         }
+-        if (!this._isKeyboardSelected && this._fullStyleContext.has_class('desktop-icons-selected')) {
+-            this._fullStyleContext.remove_class('desktop-icons-selected');
++        if (!this._isKeyboardSelected && this._fullStyleContext.has_class('desktop-icons-keyboard-selected')) {
++            this._fullStyleContext.remove_class('desktop-icons-keyboard-selected');
+         }
+         this.setAccessibleName(this._getVisibleName());
+     }
+diff --git a/app/desktopManager.js b/app/desktopManager.js
+index 6ec56b4..4e5c259 100644
+--- a/app/desktopManager.js
++++ b/app/desktopManager.js
+@@ -430,9 +430,17 @@ var DesktopManager = class {
+     }
+ 
+     _setSelectionColor() {
+-        this.selectColor = this._styleContext.get_background_color(Gtk.StateFlags.SELECTED);
++        this.selectColor = this._styleContext.get_color(Gtk.StateFlags.NORMAL);
+         let style = `.desktop-icons-selected {
+-            background-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0.6);
++            background-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0.3);
++            border-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0);
++        }
++        .desktop-icons-keyboard-selected {
++            background-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0.3);
++            border-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0.5);
++        }
++        .file-item-hover {
++            background-color: rgba(${this.selectColor.red * 255},${this.selectColor.green * 255}, ${this.selectColor.blue * 255}, 0.1);
+         }`;
+         this._cssProviderSelection.load_from_data(style);
+         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), this._cssProviderSelection, 600);
+diff --git a/app/stylesheet.css b/app/stylesheet.css
+index 6790703..a761cc5 100644
+--- a/app/stylesheet.css
++++ b/app/stylesheet.css
+@@ -11,10 +11,9 @@
+ .file-item {
+     padding: 2px;
+     border-radius: 10px;
+-}
+-
+-.file-item-hover {
+-   background-color: rgba(238, 238, 238, 0.2);
++    border-style: solid;
++    border-width: 3px;
++    border-color: rgba(0, 0, 0, 0);
+ }
+ 
+ .not-found {
+-- 
+2.51.0
+
