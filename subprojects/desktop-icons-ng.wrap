@@ -1,7 +1,7 @@
 [wrap-git]
 directory = desktop-icons-ng
 url = https://gitlab.com/rastersoft/desktop-icons-ng.git
-revision = ea41712ee207b23839baa6537c30a993fb432751
+revision = 50.1.0
 depth = 1
 
 diff_files =
