@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.5ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.5ubuntu) resolute; urgency=medium
 
   * subprojects/dash-to-dock: Override stylesheet in ubuntu session
     (LP: #2147044)
@@ -14,7 +14,7 @@ gnome-shell-ubuntu-extensions (50.26.04.5ubuntu) UNRELEASED; urgency=medium
       (LP: #2146010)
     - fileItem: Properly use Gdk activation context (LP: #2146022)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 01 Apr 2026 21:18:33 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 01 Apr 2026 21:48:42 +0200
 
 gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) resolute; urgency=medium
 
