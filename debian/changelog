@@ -1,3 +1,21 @@
+gnome-shell-ubuntu-extensions (50.26.04.5ubuntu) UNRELEASED; urgency=medium
+
+  * subprojects/dash-to-dock: Override stylesheet in ubuntu session
+    (LP: #2147044)
+  * subprojects/appindicators: Bump to latest upstream commit.
+    It fixes a variable name, no further changes
+  * subprojects/dash-to-dock: Use configured data-dir for non /usr installs
+  * desktop-icons-ng: Use extension from ubuntu-fork rather than adding patches.
+    It makes it easier to handle the changes without using diff files.
+    There is no contents change with this
+  * subprojects/desktop-icons-ng: Update to latest version:
+    - Take border in account when creating the drag surface (LP: #2147051)
+    - Do not use deprecated namespace for Gio and GLib unix methods
+      (LP: #2146010)
+    - fileItem: Properly use Gdk activation context (LP: #2146022)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 01 Apr 2026 21:18:33 +0200
+
 gnome-shell-ubuntu-extensions (50.26.04.4ubuntu) resolute; urgency=medium
 
   * subprojects/pacakagefiles/dash-to-dock: Use meson to generate translations.
