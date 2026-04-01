@@ -7,8 +7,9 @@ prefix = get_option('prefix')
 meson.add_install_script(make, '-C', d2d_src, 'install', 'PREFIX="@0@"'.format(
     prefix))
 
+sh = find_program('sh')
+
 if prefix != '/usr'
-    sh = find_program('sh')
     meson.add_install_script(sh, '-xue', '-c',
         ';'.join([
             'mkdir -p "${DESTDIR}/@0@"',
@@ -19,6 +20,17 @@ endif
 
 jq = find_program('jq', required: true)
 metadata = files('metadata.json')
+
+uuid = run_command(jq, '-r', '."uuid"', metadata).stdout().strip()
+
+meson.add_install_script(sh, '-xue', '-c',
+    ';'.join([
+        'mkdir -p ${DESTDIR}/@1@',
+        'cp @0@/ubuntu.css ${DESTDIR}/@1@',
+    ]).format(
+        meson.current_source_dir(),
+        prefix / get_option('datadir') / 'gnome-shell' / 'extensions' / uuid,
+    ))
 
 test('linting',
     make,
