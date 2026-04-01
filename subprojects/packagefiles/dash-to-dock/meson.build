@@ -13,9 +13,9 @@ if prefix != '/usr'
     meson.add_install_script(sh, '-xue', '-c',
         ';'.join([
             'mkdir -p "${DESTDIR}/@0@"',
-            'cp -RT "${DESTDIR}"/usr/share ${DESTDIR}/@0@/share',
+            'cp -RT "${DESTDIR}"/usr/share ${DESTDIR}/@0@/@1@',
             'rm -rf "${DESTDIR}"/usr/share',
-        ]).format(prefix))
+        ]).format(prefix, get_option('datadir')))
 endif
 
 jq = find_program('jq', required: true)
