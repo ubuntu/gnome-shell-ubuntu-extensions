@@ -1,3 +1,10 @@
+gnome-shell-ubuntu-extensions (50.26.04.6ubuntu) resolute; urgency=medium
+
+  * subprojects/tiling-assisant: Track ubuntu fork:
+    - Fix tiling windows with touch input (LP: #2146553)
+
+ -- Alessandro Astone <alessandro.astone@canonical.com>  Fri, 03 Apr 2026 17:52:36 +0200
+
 gnome-shell-ubuntu-extensions (50.26.04.5ubuntu) resolute; urgency=medium
 
   * subprojects/dash-to-dock: Override stylesheet in ubuntu session
