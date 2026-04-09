@@ -1,7 +1,7 @@
 [wrap-git]
 directory = tiling-assistant
-url = https://salsa.debian.org/ubuntu-dev-team/tiling-assistant
-revision = 84ed0cecd3c7e011ba03385c4e1fb577b8c4d8d4
+url = https://github.com/ubuntu/Tiling-Assistant.git
+revision = 92bb7c6297c98f0283094f9174a9616d603635c1
 depth = 1
 patch_directory = tiling-assistant
 
