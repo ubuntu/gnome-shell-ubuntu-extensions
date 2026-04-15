@@ -14,19 +14,21 @@ SHA1_RE = re.compile(r'^[0-9a-f]{7,40}$', re.I)
 def ls_remote_tags(url):
     out = subprocess.check_output(['git', 'ls-remote', '--tags', url],
                                   stderr=subprocess.DEVNULL, timeout=30)
-    tags = set()
+    tags = {}  # tag name -> commit SHA
     for line in out.splitlines():
         parts = line.decode('utf-8').split('\t', 1)
         if len(parts) != 2:
             continue
-        _, ref = parts
+        sha, ref = parts
         if not ref.startswith('refs/tags/'):
             continue
         # Annotated tags end with ^{}
         if ref.endswith('^{}'):
-            tags.add(ref[len('refs/tags/'):-3])
+            tags[ref[len('refs/tags/'):-3]] = sha.strip()
         else:
-            tags.add(ref[len('refs/tags/'):])
+            tag = ref[len('refs/tags/'):]
+            if tag not in tags:
+                tags[tag] = sha.strip()
     return tags
 
 
@@ -45,7 +47,17 @@ def validate_wrap_file(path):
     if not rev:
         return False, [f'{path}: missing revision']
 
+    revision_tag = section.get('x_revision_tag')
+
     if SHA1_RE.match(rev):
+        if revision_tag:
+            tags = ls_remote_tags(url)
+            tag_sha = tags.get(revision_tag)
+            if tag_sha is None:
+                return False, [f'{path}: x_revision_tag "{revision_tag}" not found in remote {url}']
+            if not tag_sha.startswith(rev) and not rev.startswith(tag_sha):
+                return False, [f'{path}: x_revision_tag "{revision_tag}" resolves to {tag_sha}, '
+                               f'but revision is {rev}']
         return True, []
 
     tags = ls_remote_tags(url)
@@ -57,6 +69,9 @@ def validate_wrap_file(path):
         return False, [f'{path}: revision "{rev}" not found among tags in remote ' +
                        f'{url} (available tags: {sorted(list(tags))[:10]}...). ' +
                        'Note: branch names are not accepted.']
+
+    if revision_tag and revision_tag != rev:
+        return False, [f'{path}: x_revision_tag "{revision_tag}" does not match revision tag "{rev}"']
 
     return True, []
 
