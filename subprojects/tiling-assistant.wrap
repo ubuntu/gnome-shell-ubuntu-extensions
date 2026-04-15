@@ -1,9 +1,6 @@
 [wrap-git]
 directory = tiling-assistant
 url = https://github.com/ubuntu/Tiling-Assistant.git
-revision = 92bb7c6297c98f0283094f9174a9616d603635c1
+revision = d8f38fc0e223a303ca4c87a06be6e4ce3cd3111c
 depth = 1
 patch_directory = tiling-assistant
-
-diff_files =
-    patches/tiling-assistant/tilingWindowManager-Override-window-constraints-style.patch
