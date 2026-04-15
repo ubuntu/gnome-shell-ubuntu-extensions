@@ -48,6 +48,7 @@ def validate_wrap_file(path):
         return False, [f'{path}: missing revision']
 
     revision_tag = section.get('x_revision_tag')
+    revision_sha = section.get('x_revision_sha')
 
     if SHA1_RE.match(rev):
         if revision_tag:
@@ -72,6 +73,16 @@ def validate_wrap_file(path):
 
     if revision_tag and revision_tag != rev:
         return False, [f'{path}: x_revision_tag "{revision_tag}" does not match revision tag "{rev}"']
+
+    if not revision_sha:
+        return False, [f'{path}: x_revision_sha is required when revision is a tag name']
+
+    tag_sha = tags.get(rev)
+    if not tag_sha:
+        return False, [f'{path}: could not resolve SHA for tag "{rev}"']
+    if not tag_sha.startswith(revision_sha) and not revision_sha.startswith(tag_sha):
+        return False, [f'{path}: x_revision_sha "{revision_sha}" does not match '
+                       f'SHA of tag "{rev}" ({tag_sha})']
 
     return True, []
 

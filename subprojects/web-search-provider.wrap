@@ -2,5 +2,5 @@
 directory = web-search-provider
 url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-web-search-provider.git
 revision = v2
+x_revision_sha = b39947e391bc2100ff4cd2b917e58c3a17a60d3d
 depth = 1
-
