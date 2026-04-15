@@ -2,5 +2,5 @@
 directory = snapd-prompting
 url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-extension-snapd-prompting.git
 revision = v2
+x_revision_sha = 7cf23b537f453e9b277e034d32feba849e1fb341
 depth = 1
-

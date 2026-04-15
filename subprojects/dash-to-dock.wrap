@@ -2,5 +2,6 @@
 directory = dash-to-dock
 url = https://github.com/micheleg/dash-to-dock.git
 revision = ubuntu-dock-104ubuntu1
+x_revision_sha = 2ab678fa5adec430c38fd005895afb1bcaf25503
 depth = 1
 patch_directory = dash-to-dock
