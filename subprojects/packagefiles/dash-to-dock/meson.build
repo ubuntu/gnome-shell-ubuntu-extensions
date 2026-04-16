@@ -32,6 +32,9 @@ meson.add_install_script(sh, '-xue', '-c',
         prefix / get_option('datadir') / 'gnome-shell' / 'extensions' / uuid,
     ))
 
+install_data('schemas/10_ubuntu-dock.gschema.override',
+    install_dir: get_option('datadir') / 'glib-2.0' / 'schemas')
+
 test('linting',
     make,
     workdir: d2d_src,

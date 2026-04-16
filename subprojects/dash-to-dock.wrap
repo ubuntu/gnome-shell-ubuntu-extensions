@@ -1,7 +1,7 @@
 [wrap-git]
 directory = dash-to-dock
 url = https://github.com/micheleg/dash-to-dock.git
-revision = ubuntu-dock-104ubuntu1
-x_revision_sha = 2ab678fa5adec430c38fd005895afb1bcaf25503
+revision = ubuntu-dock-105ubuntu1
+x_revision_sha = 62e122c0b5db34554c1cead9d6cd2fd5f13b36e5
 depth = 1
 patch_directory = dash-to-dock

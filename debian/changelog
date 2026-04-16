@@ -1,3 +1,74 @@
+gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) UNRELEASED; urgency=medium
+
+  [ Alessandro Astone ]
+  * subprojects/tiling-assisant: Track new ubuntu upstream
+
+  [ Marco Trevisan (Treviño) ]
+  * web-search-provider: Bump version to fix installation of translation files
+    (LP: #2148251)
+  * validate-wrap-revisions: Support x_revision_tag field
+  * tools/validate-wrap-revisions: Require tags to come with a SHA revision
+    Prevents supply-chain attacks.
+  * subprojects/dash-to-dock: Update to latest bug-fix release.
+      - docking: Avoid inserting ("tracking") docks during the login
+        animation (LP: #2146516)
+      - docking: Unfocus currently focused window when getting the a11y
+        focus (LP: #2147922)
+      - appIconsDecorator: Keep track of icons and results appIcons
+        separately (LP: #2146632)
+      - appIcons[Decorator]: Adjust to GNOME 49 API to show OSD
+        (LP: #2148313)
+      - docking: Disconnect from all signals on docks and children
+        destruction (LP: #2148339)
+      - docking: Only show the dock once fully initialized (LP: #2035304)
+      - docking: Use default showAppsButton behavior when used in Ctrl+Alt+Tab.
+        (LP: #2148513)
+      - translations updates
+  * subprojects/desktop-icons: Bump to the latest ubuntu version.
+      - emulateX11WindowType: Set the DING window as Desktop window type
+        (LP: #2147344)
+      - desktopGrid: Use theme-defined border color for drop areas
+        (LP: #2147346)
+      - desktopGrid: Use the shell scale factor as zoom value (LP: #2146800)
+      - emulateX11WindowType: Do not try to re-stack an unmanaged window
+        (LP: #2147581)
+      - desktopManager: Do not use specific style for backdrop key-selected
+        icons (LP: #2147581)
+      - fileItemMenu: Show dialog using the desktop toplevel as parent
+        (LP: #2147583)
+      - fileItemMenu: Properly set the modal and headerbar flags on open
+        dialog (LP: #2147583)
+      - autoAr: Set the desktop window as transient for for the compress
+        dialog (LP: #2147583)
+      - fileItemMenu: Set the file chooser dialog as trasient for the
+        desktop window (LP: #2147583)
+      - desktopManager: Set the find files dialog as transient for the
+        desktop (LP: #2147583)
+      - desktopIconsUtil: Add utility function to create a menu with CSS
+        class (LP: #2147938)
+      - ding: Use a DesktopMenu for all the menus and submenus
+        (LP: #2147938)
+  * subprojects/tiling-assistant: Update to new version.
+      - Drop the meson diff file, as the patch is now merged upstream
+      - Use vertically/horizontally maximized windows when possible
+        (LP: #2148492)
+      - moveHandler: Cleanup the signal connections on screen lock
+        (LP: #2148514)
+  * subprojects/appindicators: Update to latest version with a11y fixes.
+      - appIndicator: Queue extra properties update when added to the proxy
+        (LP: #2148525)
+      - appIndicator: Ensure Accessible description for icons are loaded
+        (LP: #2148525)
+      - appIndicator: Try to use the application name as accessible
+        description (LP: #2148525)
+      - appIndicator: Use the indicator label if no accessible description
+        is set (LP: #2148525)
+      - Disconnect from signals on destruction
+  * subprojects/dash-to-dock: Install ubuntu settings overrides (LP: #2148530,
+    LP: #2147311)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 16 Apr 2026 09:12:54 +0200
+
 gnome-shell-ubuntu-extensions (50.26.04.6ubuntu) resolute; urgency=medium
 
   * subprojects/tiling-assisant: Track ubuntu fork:
