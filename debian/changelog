@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) resolute; urgency=medium
 
   [ Alessandro Astone ]
   * subprojects/tiling-assisant: Track new ubuntu upstream
@@ -67,7 +67,7 @@ gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) UNRELEASED; urgency=medium
   * subprojects/dash-to-dock: Install ubuntu settings overrides (LP: #2148530,
     LP: #2147311)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 16 Apr 2026 09:12:54 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 16 Apr 2026 09:17:17 +0200
 
 gnome-shell-ubuntu-extensions (50.26.04.6ubuntu) resolute; urgency=medium
 
