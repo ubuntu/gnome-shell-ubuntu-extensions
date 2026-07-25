@@ -1,7 +1,7 @@
 [wrap-git]
 directory = snapd-search-provider
 url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-snapd-search-provider.git
-revision = v2
-x_revision_sha = 112c0dbf30b517137b9b3391fa47e791c40ae646
+revision = v3
+x_revision_sha = 4664d63fa9752d6bedcf314c77f1cc3a1a5c5620
 depth = 1
 
