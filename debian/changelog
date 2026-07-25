@@ -1,3 +1,53 @@
+gnome-shell-ubuntu-extensions (51.26.10.1ubuntu) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * subprojects/web-search-provider: Bump version to v3 (LP: #2155930)
+  * subprojects/tiling-assistant: Update to latest main (LP: #2156860)
+  * subprojects/snapd-search-provider: Bump to v3.
+    - snapFinderSearchProvider: Track display destruction (LP: #2158651)
+    - snapFinderSearchProvider: Define proper proto-handler fallback
+      (LP: #2150265)
+    - extension: Ensure the search provider is enabled on settings changes
+    - snapFinderSearchProvider: Support ubuntu software
+    - snapFinderSearchProvider: Cancel early meta fetching on cancelled
+    - metadata: Add support for GNOME 51
+  * subprojects/snapd-prompting: Bump to v3.
+    - Support GNOME 51
+    - Code cleanups
+  * subprojects/dash-to-dock: Bump to ubuntu-dock-106ubuntu1.
+    - metadata: Enable support for GNOME 51
+    - docking: Use a place-holder dash actor during startup (LP: #2150429)
+    - docking: Simplify the handling of dummy dash case
+    - docking: do not restore the old dash more than once
+    - docking: Override overview adjustment value to stay hidden during startup
+      (LP: #2153406)
+    - docking: Make the OverviewAdjustment value override settable
+    - docking: Ru-use overview controls property
+    - utils: Improve disconnection of signals when parent objects are destroyed
+    - utils: Monitor connected objects for destruction
+    - docking: Stop tracking the old dash when it gets destroyed
+    - extension: Disable the extension on shutdown (LP: #2150670)
+    - utils: Simplify code to get windows by object path
+    - docking: Avoid accessing to main dock before staging it (LP: #2150429)
+    - docking: Define a dummy showAppsButton on the dummy dash (LP: #2150429)
+    - docking: Avoid adjusting size during startup (LP: #2150429)
+    - appIcons: Fix DEFAULT dot position (LP: #2155129)
+  * subprojects/appindicators: Bump to v65.
+    - Add support for GNOME 51
+    - dbusMenu: Fix argument order of the child-moved signal
+  * subprojects/web-search-provider: Bump to v4.
+    - metadata: Add support for GNOME 51
+    - extension: Ensure the search provider is enabled on settings changes
+    - extension: Do not try to register a provider if there is no overview
+
+  [ Alessandro Astone ]
+  * subprojects/tiling-assistant: Update for GNOME 51
+
+  [ Sergio Costas Rodriguez ]
+  * Update to DING 51.0.3
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 25 Jul 2026 05:21:26 +0200
+
 gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) resolute; urgency=medium
 
   [ Alessandro Astone ]
