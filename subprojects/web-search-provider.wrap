@@ -1,6 +1,6 @@
 [wrap-git]
 directory = web-search-provider
 url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-web-search-provider.git
-revision = v3
-x_revision_sha = 2d040194e594e54f955d3630655bf134da9a2e23
+revision = v4
+x_revision_sha = 8923b068be0c20937c503babaad3399a4d54cc9e
 depth = 1
