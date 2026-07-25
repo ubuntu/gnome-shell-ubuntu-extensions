@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (51.26.10.1ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (51.26.10.1ubuntu) stonking; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * subprojects/web-search-provider: Bump version to v3 (LP: #2155930)
@@ -46,7 +46,7 @@ gnome-shell-ubuntu-extensions (51.26.10.1ubuntu) UNRELEASED; urgency=medium
   [ Sergio Costas Rodriguez ]
   * Update to DING 51.0.3
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 25 Jul 2026 05:21:26 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Sat, 25 Jul 2026 06:17:34 +0200
 
 gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) resolute; urgency=medium
 
