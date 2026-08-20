@@ -8,6 +8,7 @@ extensions = {
       'local_install=disabled',
   ],
   'desktop-icons-ng': [],
+  'myna-shell': [],
   'dash-to-dock': [],
   'snapd-prompting': [
       'local_install=disabled',

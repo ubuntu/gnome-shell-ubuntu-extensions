@@ -9,6 +9,7 @@ Included extensions:
 - [AppIndicators](https://github.com/ubuntu/gnome-shell-extension-appindicator)
 - [Desktop Icons NG](https://gitlab.com/rastersoft/desktop-icons-ng)
 - [Dash to Dock](https://github.com/micheleg/dash-to-dock)
+- [Myna Shell](https://github.com/canonical/myna)
 - [Tiling Assistant](https://github.com/Leleat/Tiling-Assistant)
 - [Web Search Provider](https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-web-search-provider)
 - [Snapd Search Provider](https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-snapd-search-provider)
