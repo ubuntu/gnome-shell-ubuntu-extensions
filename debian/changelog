@@ -1,8 +1,8 @@
-gnome-shell-ubuntu-extensions (51.26.10.2ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (51.26.10.2ubuntu) stonking; urgency=medium
 
   * subprojects: Include myna-shell
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 21 Aug 2026 01:24:19 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Fri, 21 Aug 2026 01:33:21 +0200
 
 gnome-shell-ubuntu-extensions (51.26.10.1ubuntu) stonking; urgency=medium
 
