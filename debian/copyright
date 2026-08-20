@@ -46,6 +46,14 @@ Copyright:
     2019-2025 Sergio Costas <rastersoft@gmail.com>
 License: GPL-3+
 
+Files: subprojects/myna-shell/*
+Copyright: 2026 Canonical Ltd.
+License: GPL-3
+
+Files: subprojects/myna-shell/meson.build
+Copyright: 2026 Marco Trevisan <marco@ubuntu.com>
+License: GPL-3+
+
 Files: subprojects/tiling-assistant/*
 Copyright:
     2020-2025 Leleat <Leleat@GitHub>
