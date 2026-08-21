@@ -41,4 +41,5 @@ override_dh_translations:
 update-subprojects:
 	meson subprojects purge --confirm
 	meson subprojects download
+	python3 debian/filter-subprojects.py
 	tools/validate-wrap-revisions.py

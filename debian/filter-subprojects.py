@@ -7,12 +7,9 @@ import tempfile
 from pathlib import Path
 
 
-MESON_FILES = ('meson.build', 'meson.options', 'meson_options.txt')
-
-
 def copy_path(source, destination):
     if source.is_dir():
-        shutil.copytree(source, destination, symlinks=True)
+        shutil.copytree(source, destination, dirs_exist_ok=True, symlinks=True)
     else:
         shutil.copy2(source, destination, follow_symlinks=False)
 
@@ -45,11 +42,12 @@ def filter_subproject(subprojects_dir, wrap_path):
         for source in source_dir.iterdir():
             copy_path(source, filtered_dir / source.name)
 
-        # packagefiles may provide the root Meson build configuration.
-        for filename in MESON_FILES:
-            source = subproject_dir / filename
-            if source.exists():
-                copy_path(source, filtered_dir / filename)
+        # Meson copies root packagefiles when downloading a wrap, but nested
+        # packagefiles need to be restored after the subfolder is flattened.
+        packagefiles_dir = subprojects_dir / 'packagefiles' / wrap_path.stem
+        if packagefiles_dir.is_dir():
+            for source in packagefiles_dir.iterdir():
+                copy_path(source, filtered_dir / source.name)
 
         shutil.rmtree(subproject_dir)
         filtered_dir.rename(subproject_dir)
