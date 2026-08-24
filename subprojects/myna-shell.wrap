@@ -1,7 +1,7 @@
 [wrap-git]
 directory = myna-shell
 url = https://github.com/canonical/myna.git
-revision = 8c425f7cea03a1513d103147793bc5e3c2d65510
+revision = bc334f55e83a65bd892851189ee46d64e8345d36
 depth = 1
 patch_directory = myna-shell
 x_subfolder = extensions/myna-shell
