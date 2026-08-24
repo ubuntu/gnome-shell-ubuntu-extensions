@@ -20,6 +20,8 @@ install_subdir(extension_path,
   ],
 )
 
+subdir('po')
+
 summary({
   'Extension UUID': uuid,
   'Extension directory': extension_dir,
