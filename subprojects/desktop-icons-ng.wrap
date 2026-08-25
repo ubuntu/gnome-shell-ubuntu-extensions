@@ -1,5 +1,5 @@
 [wrap-git]
 directory = desktop-icons-ng
 url = https://salsa.debian.org/gnome-team/shell-extensions/gnome-shell-extension-desktop-icons-ng.git
-revision = 9dcda310fecf9da6367e28df4bf97afb543d8387
+revision = dba8bdb653ce79c655c7d33ec98368f92cb1444a
 depth = 1
