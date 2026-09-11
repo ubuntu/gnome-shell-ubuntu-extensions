@@ -16,8 +16,8 @@ Build-Depends: debhelper-compat (= 13),
                node-strip-ansi <!nocheck>,
                sassc,
 Standards-Version: 4.7.2
-Vcs-Browser: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
-Vcs-Git: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
+Vcs-Browser: https://github.com/ubuntu/gnome-shell-ubuntu-extensions/tree/ubuntu/resolute
+Vcs-Git: https://github.com/ubuntu/gnome-shell-ubuntu-extensions -b ubuntu/resolute
 Homepage: https://github.com/ubuntu/gnome-shell-ubuntu-extensions
 
 Package: gnome-shell-ubuntu-extensions
