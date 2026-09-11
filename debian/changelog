@@ -1,3 +1,11 @@
+gnome-shell-ubuntu-extensions (50.26.04.8ubuntu) resolute; urgency=medium
+
+  * debian: Branch for ubuntu/resolute
+  * tiling-assistant: Fix crash when dragging a window across monitors
+    (LP: #2153546)
+
+ -- Alessandro Astone <alessandro.astone@canonical.com>  Fri, 11 Sep 2026 14:51:47 +0200
+
 gnome-shell-ubuntu-extensions (50.26.04.7ubuntu) resolute; urgency=medium
 
   [ Alessandro Astone ]
