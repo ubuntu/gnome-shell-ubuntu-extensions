@@ -1,0 +1,29 @@
+From: =?utf-8?b?Ik1hcmNvIFRyZXZpc2FuIChUcmV2acOxbyki?= <mail@3v1n0.net>
+Date: Tue, 22 Sep 2026 00:00:00 +0200
+Subject: lint: Ignore camelcase errors in tests with older debian eslint
+
+Debian ships eslint 6.4.0, which reports camelcase errors for the
+snake_case actor API methods used in the test doubles (get_children,
+add_child, insert_child_below, remove_child). Newer eslint does not,
+because the rule is configured with `properties: never`.
+
+Disable the rule for the tests directory only.
+
+---
+ .eslintrc.yml | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/.eslintrc.yml b/.eslintrc.yml
+--- a/.eslintrc.yml
++++ b/.eslintrc.yml
+@@ -6,6 +6,10 @@ extends:
+  - ./lint/eslintrc-shell.yml
+ 
+ overrides:
++  - files:
++      - ./tests/**.js
++    rules:
++      camelcase: off
+   - files: ./**.js
+     globals:
+       global: readonly
