@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (51.26.10.3ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (51.26.10.3ubuntu) stonking; urgency=medium
 
   [ Marco Trevisan (Treviño) ]
   * debian: Add support for filtering meson subprojects sources
@@ -124,7 +124,7 @@ gnome-shell-ubuntu-extensions (51.26.10.3ubuntu) UNRELEASED; urgency=medium
   [ Alessandro Astone ]
   * subprojects/tiling-assistant: Update to latest main (LP: #2153546)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 22 Sep 2026 07:56:23 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 22 Sep 2026 08:24:51 +0200
 
 gnome-shell-ubuntu-extensions (51.26.10.2ubuntu) stonking; urgency=medium
 
