@@ -1,8 +1,8 @@
 [wrap-git]
 directory = appindicators
 url = https://github.com/ubuntu/gnome-shell-extension-appindicator.git
-revision = v65
-x_revision_sha = bd6775ad627117d8397d82403c650e753a5514c1
+revision = v66
+x_revision_sha = 52da5222a17f7a862e8a47d2bc523f29abf59964
 depth = 1
 
 diff_files =
