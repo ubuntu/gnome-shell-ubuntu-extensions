@@ -1,3 +1,131 @@
+gnome-shell-ubuntu-extensions (51.26.10.3ubuntu) UNRELEASED; urgency=medium
+
+  [ Marco Trevisan (Treviño) ]
+  * debian: Add support for filtering meson subprojects sources
+  * debian/copyright: Add myna-shell info
+  * subprojects/myna-shell:
+    - Filter out non-extension code
+    - myna-shell: Add translations support
+    - myna-shell: Update shell extension to use shader effect
+    - myna-shell: Use lightweight hud-launcher extension
+  * subprojects: Update tiling assistant to latest release
+    - Add support for GNOME Shell 51
+    - Add a tiling option menu to pick a tile while moving a window
+    - Semi-maximize tiles that use the full width or height of the work area
+    - Keep gaps on half tiles that span the work area
+    - Only semi-maximize tiles that actually reach the work area edges
+    - Apply the semi-maximize state after moving the window so it lands on the
+      intended tile (LP: #2155749)
+    - Base the available space on what a window actually occupies, not just its
+      intended tile
+    - Wait for a tiled window to settle before opening the Tiling Popup
+    - Handle window drags made via touch input
+    - Work around spurious pointer leave events from tablet tools
+    - Don't error out when a dragged window is destroyed or the extension is
+      disabled
+    - Load the saved session state and the layouts asynchronously instead of
+      blocking the shell with synchronous file I/O
+    - Update for the `Meta.Window` maximize API changes in GNOME Shell 49
+      (`get_maximized()` was renamed to `get_maximize_flags()`, and
+      `maximize()`/`unmaximize()` no longer take `Meta.MaximizeFlags`)
+    - Release the Alt-Tab switcher arrows, thumbnail bins and labels when it
+      is destroyed
+    - Don't ship the compiled GSettings schema in the zip file
+  * subprojects/desktop-icons-ng: Bump to 51.0.8 with ubuntu patches
+    - Using new upstream version, with delta to improve the icons selection
+    - Selections now use the theme foreground/background colors (like
+      Nautilus), with access to accent colors removed, so they remain
+      visible on any wallpaper; high-contrast mode is honored via
+      color-mix() and prefers-contrast
+    - Restore the hover highlight for icons
+    - Adjust icon selection rounding to match Nautilus
+    - Support launching AppImages and allow disabling their sandbox
+    - Do not show the custom icon for untrusted .desktop/.appimage files
+    - Support dropping URIs and plain text, including onto trusted
+      .desktop files
+    - Drop the X11-only sync path (assume Wayland)
+    - several emulateX11WindowType cleanups
+    - Stop tracking dark-mode and scale-monitor-framebuffer settings now
+      handled by libadwaita
+    - Do not use a specific style for backdrop key-selected icons
+    - Make dialogs transient for the desktop window and fix re-opening the
+      preferences window
+    - Fix "Open in terminal" from the desktop, and gnome-sushi integration
+  * subprojects/dash-to-dock: Bump to new upstream release
+    - extension: Fix double connection of shutdown ID
+    - docking: Avoid accessing to main dock before staging it (LP: #2150429)
+    - docking: Define a dummy showAppsButton on the dummy dash (LP: #2150429)
+    - docking: Avoid adjusting size during startup (LP: #2150429)
+    - cleanup: Use camel-case properties for accessible name
+    - docking: Remove unused docks-destroyed signal
+    - docking: Remove duplicated settings getter
+    - docking: Move windowTracker to dockManager
+    - docking: Cancel dock dwell timeout on destruction
+    - prefs: Adjust APIs to please shexli
+    - theming: Rely on the actor's style-changed to update the theme
+    - theming: Remove destroyed flag
+    - theming: Queue the theme update out of the allocation cycle
+    - dash: Remove queue relayout workaround
+    - appIcons: Detect double clicks with a gesture
+    - windowPreview: Use orientation method on newer GNOME
+    - appIcons: Cancel double click gesture before starting spread
+    - appSpread: Override key release event only if set
+    - appSpread: Override default key and mouse handlers
+    - docking: Expose DockStruct API to other extensions
+    - metadata: Release dash-to-dock v107
+    - appIconIndicators: Announce unread notification count to screen readers
+    - perf: skip redundant dock geometry updates
+    - style: satisfy dock geometry lint rule
+    - Replace removed shell PointerWatcher with Meta.CursorTracker
+    - Use the orientation property where possible
+    - Updated Spanish translation
+    - Fix missing string
+    - Set Project-Id-Version
+    - po: update Italian translations
+    - metadata: Release dash-to-dock v109
+    - docking: Expose some dock properties as GObject ones
+    - docking: Bind state changes to property changes only
+    - docking: Cleanup the code to manage unredirection
+    - docking: Do not disable unredirect when the dash monitor is full-screen
+    - dash: Remove potential stray upstream timeout
+    - docking: Restore _ignoreHover on drag end
+    - docking: Track positioning reset with lambda functions
+    - docking: Bind to settings changes only after tracking the dock
+    - theming: Do not reload theme at each actor style update
+    - docking: Connect dock to global signals only after mapping
+    - docking: reset position only once mapped
+    - dash: Only redisplay once mapped
+    - utils: Fix property injection when mixing accessors and values
+    - docking: Force hasOverview to false on startup when overview is disabled
+    - appIcons: Forward the click count from button events in activate()
+    - appIcons: Only create the double click gesture when available
+    - locations: Translate error messages before formatting them
+    - appIcons: Use the extension gettext domain for strings not in the shell
+    - Update Polish translation
+    - Update Brazilian Portuguese translation
+  * subprojects/appindicator: Bump to version v66
+    - Add GNOME Shell 51 support (Clutter settings fetched via ClutterContext)
+    - statusNotifierWatcher: Support the "service/path" and standard SNI
+      registration formats, fixing Slack and Electron indicators
+    - statusNotifierWatcher: Expose registered service names instead of the
+      internal unique IDs
+    - appIndicator: Treat Status as a required property, load all properties on
+      proxy init, and refresh IconThemePath along with icon updates
+    - appIndicator: Fix startup notification / activation token handling and
+      name-owner tracking
+    - dbusMenu: Cancel the local cancellable on destroy
+    - menuUtils: Fix menu items disappearing when moved past the last row
+  * subprojects/appindicators: Ignore debian-only linting errors via patch
+  * subprojects/dash-to-dock: Use gettext glib presets
+
+  [ Daniel van Vugt ]
+  * subprojects/desktop-icons-ng.wrap: Update to 51.0.7
+
+  [ Alessandro Astone ]
+  * subprojects/tiling-assistant: Update to latest main (LP: #2153546)
+
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Tue, 22 Sep 2026 07:56:23 +0200
+
 gnome-shell-ubuntu-extensions (51.26.10.2ubuntu) stonking; urgency=medium
 
   * subprojects: Include myna-shell
