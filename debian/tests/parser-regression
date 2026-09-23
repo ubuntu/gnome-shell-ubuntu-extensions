@@ -19,6 +19,7 @@ const GdkPixbuf = await import(`gi://GdkPixbuf?version=2.0`);
 export {default as Dlna} from 'gi://GUPnP-DLNA?version=2.0';
 const legacy = imports.gi.Soup;
 const interpolated = `${imports.gi.TemplateLib}`;
+const nestedTemplate = `${(() => { const closing = "}"; /* } */ return imports.gi.TemplateBrace; })()}`;
 const templateProse = `imports.gi.TemplateNoise`;
 const prose = "imports.gi.Fake";
 const uri = "gi://AlsoFake";
@@ -33,6 +34,7 @@ Gio
 GLib-2.0
 GUPnP-DLNA-2.0
 Soup
+TemplateBrace
 TemplateLib
 EOF
 

@@ -5,7 +5,7 @@ permissions:
 
 on:
   push:
-    branches: "*"
+    branches: "**"
     tags:
       - "*"
   pull_request:
@@ -61,7 +61,8 @@ jobs:
 
           if [ "${should_run_autopkgtest}" != true ]; then
             should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
-              any(.[]; startswith("debian/") or
+              any(.[]; startswith("debian/tests/") or
+                       . == "debian/gjs-check-runtime-dependencies.sh" or
                        . == ".github/workflows/build-deb.yaml")
             ')
           fi
