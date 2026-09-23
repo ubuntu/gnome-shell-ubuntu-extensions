@@ -41,9 +41,88 @@ function introspect_typelibs() {
     local introspect_path=$1
     local included_typelibs=()
     mapfile -t included_typelibs < <(
-        grep -Ev "^[[:space:]]*(//|/\\*|\\*)" "${introspect_path}" -rh |
-        grep -E "['\"]gi://[A-Za-z0-9]+(\?version=[0-9.]+)?['\"]" -o |
-        sed -E "s,^['\"]gi://([A-Za-z0-9]+)(\\?version=([0-9.]+))?['\"]$,\1-\3,g" |
+        find "${introspect_path}" -type f -exec perl -0ne '
+            my $text = $_;
+            my $sanitized = "";
+            my $state = "code";
+            my $escape = 0;
+            my $single_quote = chr(39);
+
+            for (my $i = 0; $i < length($text); $i++) {
+                my $char = substr($text, $i, 1);
+                my $next = $i + 1 < length($text) ? substr($text, $i + 1, 1) : "";
+
+                if ($state eq "line_comment") {
+                    if ($char eq "\n") {
+                        $state = "code";
+                        $sanitized .= "\n";
+                    } else {
+                        $sanitized .= " ";
+                    }
+                    next;
+                }
+
+                if ($state eq "block_comment") {
+                    if ($char eq "*" && $next eq "/") {
+                        $sanitized .= "  ";
+                        $i++;
+                        $state = "code";
+                    } elsif ($char eq "\n") {
+                        $sanitized .= "\n";
+                    } else {
+                        $sanitized .= " ";
+                    }
+                    next;
+                }
+
+                if ($state eq "single" || $state eq "double" || $state eq "template") {
+                    $sanitized .= $char;
+                    if ($escape) {
+                        $escape = 0;
+                    } elsif ($char eq "\\") {
+                        $escape = 1;
+                    } elsif (($state eq "single" && $char eq $single_quote) ||
+                             ($state eq "double" && $char eq q{"}) ||
+                             ($state eq "template" && $char eq q{`})) {
+                        $state = "code";
+                    }
+                    next;
+                }
+
+                if ($char eq "/" && $next eq "/") {
+                    $sanitized .= "  ";
+                    $i++;
+                    $state = "line_comment";
+                    next;
+                }
+
+                if ($char eq "/" && $next eq "*") {
+                    $sanitized .= "  ";
+                    $i++;
+                    $state = "block_comment";
+                    next;
+                }
+
+                if ($char eq $single_quote) {
+                    $state = "single";
+                } elsif ($char eq q{"}) {
+                    $state = "double";
+                } elsif ($char eq q{`}) {
+                    $state = "template";
+                }
+
+                $sanitized .= $char;
+            }
+
+            while ($sanitized =~ /(?:^|[;\s])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047])/gms) {
+                print(($1 // $2), "\n");
+            }
+
+            while ($sanitized =~ /(?:^|[;\s])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+                print("$1\n");
+            }
+        ' {} + |
+        sed -E "s,^gi://([A-Za-z0-9]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
         sort -u
     )
 
