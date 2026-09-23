@@ -36,8 +36,11 @@ jobs:
           set -eu
 
           modified_files='[]'
+          should_run_autopkgtest=false
 
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            should_run_autopkgtest=true
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
             modified_files=$(gh pr diff ${{ github.event.pull_request.number }} \
               --repo ${{ github.repository }} \
               --name-only | jq -Rsc 'split("\n")[:-1]')
@@ -56,10 +59,12 @@ jobs:
             modified_files=$(git diff --name-only "${range_start}" "${range_end}" | jq -Rsc 'split("\n")[:-1]')
           fi
 
-          should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
-            any(.[]; startswith("debian/") or
-                     . == ".github/workflows/build-deb.yaml")
-          ')
+          if [ "${should_run_autopkgtest}" != true ]; then
+            should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
+              any(.[]; startswith("debian/") or
+                       . == ".github/workflows/build-deb.yaml")
+            ')
+          fi
 
           echo "run-autopkgtest=${should_run_autopkgtest}" >> "${GITHUB_OUTPUT}"
 

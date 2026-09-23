@@ -174,15 +174,15 @@ function introspect_typelibs() {
                 $code_sanitized .= $char;
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s*\(\s*["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[\s\S]*?)?\s*\)/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s*\(\s*["\047`](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047`](?:\s*,[\s\S]*?)?\s*\)/gms) {
                 print("$1\n");
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s+(?:[\s\S]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s+(?:[\s\S]*?\sfrom\s*)?["\047`](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047`]/gms) {
                 print("$1\n");
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])export\s+[\s\S]*?\sfrom\s*["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])export\s+[\s\S]*?\sfrom\s*["\047`](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047`]/gms) {
                 print("$1\n");
             }
 
