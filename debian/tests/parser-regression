@@ -16,6 +16,8 @@ const Gdk = await import(
   {with: {type: 'json'}}
 );
 const legacy = imports.gi.Soup;
+const interpolated = `${imports.gi.TemplateLib}`;
+const templateProse = `imports.gi.TemplateNoise`;
 const prose = "imports.gi.Fake";
 const uri = "gi://AlsoFake";
 /* import Hidden from 'gi://Hidden'; */
@@ -27,6 +29,7 @@ Gdk-4.0
 Gio
 GLib-2.0
 Soup
+TemplateLib
 EOF
 
 debian/gjs-check-runtime-dependencies.sh "${scratch_dir}" extract > "${scratch_dir}/actual"

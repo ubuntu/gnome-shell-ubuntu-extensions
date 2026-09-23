@@ -20,7 +20,7 @@ jobs:
       contents: read
       pull-requests: read
     outputs:
-      list: ${{ steps.collect.outputs.list }}
+      run-autopkgtest: ${{ steps.collect.outputs.run-autopkgtest }}
 
     steps:
       - name: Checkout code
@@ -43,7 +43,13 @@ jobs:
             modified_files=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | jq -Rsc 'split("\n")[:-1]')
           fi
 
-          echo "list=${modified_files}" >> "${GITHUB_OUTPUT}"
+          should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
+            any(.[]; startswith("debian/tests/") or
+                     . == "debian/gjs-check-runtime-dependencies.sh" or
+                     . == ".github/workflows/build-deb.yaml")
+          ')
+
+          echo "run-autopkgtest=${should_run_autopkgtest}" >> "${GITHUB_OUTPUT}"
 
   build-deb-packages:
     name: Ubuntu Devel
@@ -112,9 +118,7 @@ jobs:
       contents: read
     if: ${{ github.event_name == 'workflow_dispatch' ||
       startsWith(github.ref, 'refs/tags/') ||
-      contains(needs.check-modified-files.outputs.list, 'debian/tests/') ||
-      contains(needs.check-modified-files.outputs.list, 'debian/gjs-check-runtime-dependencies.sh') ||
-      contains(needs.check-modified-files.outputs.list, '.github/workflows/build-deb.yaml') }}
+      needs.check-modified-files.outputs.run-autopkgtest == 'true' }}
     env:
       UBUNTU_VERSION: devel
 

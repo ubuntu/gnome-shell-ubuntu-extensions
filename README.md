@@ -46,12 +46,6 @@ Further package-related documentation in [`debian/README.source`](debian/README.
 
 ## Autopkgtests
 
-To run the autopkgtests locally from the repository root:
-
-```sh
-autopkgtest . -- lxd ubuntu-daily:devel
-```
-
-In GitHub Actions, the autopkgtest job runs when `debian/tests/*`,
-`debian/gjs-check-runtime-dependencies.sh`, or this workflow changes, and it can
+In GitHub Actions, the autopkgtest job runs when files under `debian/tests/`,
+`debian/gjs-check-runtime-dependencies.sh`, or this workflow change, and it can
 also be started with **Run workflow** or by pushing any tag.

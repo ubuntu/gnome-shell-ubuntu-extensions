@@ -40,17 +40,24 @@ function introspect_typelibs() {
             my $text = $_;
             my $module_sanitized = "";
             my $code_sanitized = "";
-            my $state = "code";
+            my @states = ("code");
+            my @template_expr_depth = ();
             my $escape = 0;
             my $single_quote = chr(39);
+            my $double_quote = chr(34);
+            my $dollar = chr(36);
+            my $open_brace = chr(123);
+            my $close_brace = chr(125);
+            my $backtick = chr(96);
 
             for (my $i = 0; $i < length($text); $i++) {
                 my $char = substr($text, $i, 1);
                 my $next = $i + 1 < length($text) ? substr($text, $i + 1, 1) : "";
+                my $state = $states[-1];
 
                 if ($state eq "line_comment") {
                     if ($char eq "\n") {
-                        $state = "code";
+                        pop @states;
                         $module_sanitized .= "\n";
                         $code_sanitized .= "\n";
                     } else {
@@ -65,7 +72,7 @@ function introspect_typelibs() {
                         $module_sanitized .= "  ";
                         $code_sanitized .= "  ";
                         $i++;
-                        $state = "code";
+                        pop @states;
                     } elsif ($char eq "\n") {
                         $module_sanitized .= "\n";
                         $code_sanitized .= "\n";
@@ -77,6 +84,15 @@ function introspect_typelibs() {
                 }
 
                 if ($state eq "single" || $state eq "double" || $state eq "template") {
+                    if ($state eq "template" && !$escape && $char eq $dollar && $next eq $open_brace) {
+                        $module_sanitized .= q|${|;
+                        $code_sanitized .= q|${|;
+                        push @states, "template_expr";
+                        push @template_expr_depth, 1;
+                        $i++;
+                        next;
+                    }
+
                     $module_sanitized .= $char;
                     $code_sanitized .= $char eq "\n" ? "\n" : " ";
                     if ($escape) {
@@ -84,9 +100,9 @@ function introspect_typelibs() {
                     } elsif ($char eq "\\") {
                         $escape = 1;
                     } elsif (($state eq "single" && $char eq $single_quote) ||
-                             ($state eq "double" && $char eq q{"}) ||
-                             ($state eq "template" && $char eq q{`})) {
-                        $state = "code";
+                             ($state eq "double" && $char eq $double_quote) ||
+                             ($state eq "template" && $char eq $backtick)) {
+                        pop @states;
                     }
                     next;
                 }
@@ -95,7 +111,7 @@ function introspect_typelibs() {
                     $module_sanitized .= "  ";
                     $code_sanitized .= "  ";
                     $i++;
-                    $state = "line_comment";
+                    push @states, "line_comment";
                     next;
                 }
 
@@ -103,16 +119,45 @@ function introspect_typelibs() {
                     $module_sanitized .= "  ";
                     $code_sanitized .= "  ";
                     $i++;
-                    $state = "block_comment";
+                    push @states, "block_comment";
                     next;
                 }
 
                 if ($char eq $single_quote) {
-                    $state = "single";
-                } elsif ($char eq q{"}) {
-                    $state = "double";
-                } elsif ($char eq q{`}) {
-                    $state = "template";
+                    $module_sanitized .= $char;
+                    $code_sanitized .= " ";
+                    $escape = 0;
+                    push @states, "single";
+                    next;
+                } elsif ($char eq $double_quote) {
+                    $module_sanitized .= $char;
+                    $code_sanitized .= " ";
+                    $escape = 0;
+                    push @states, "double";
+                    next;
+                } elsif ($char eq $backtick) {
+                    $module_sanitized .= $char;
+                    $code_sanitized .= " ";
+                    $escape = 0;
+                    push @states, "template";
+                    next;
+                }
+
+                if ($state eq "template_expr") {
+                    if ($char eq $open_brace) {
+                        $template_expr_depth[-1]++;
+                    } elsif ($char eq $close_brace) {
+                        $template_expr_depth[-1]--;
+                    }
+
+                    $module_sanitized .= $char;
+                    $code_sanitized .= $char;
+
+                    if ($char eq $close_brace && $template_expr_depth[-1] == 0) {
+                        pop @template_expr_depth;
+                        pop @states;
+                    }
+                    next;
                 }
 
                 $module_sanitized .= $char;
@@ -134,7 +179,7 @@ function introspect_typelibs() {
             while ($code_sanitized =~ /(?:^|[^[:alnum:]_\$])imports\.gi\.([A-Za-z0-9_]+)/gms) {
                 print("$1\n");
             }
-        ' {} + |
+        ' {} \; |
         sed -E "s,^gi://([A-Za-z0-9_]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
         sort -u
     )
