@@ -32,9 +32,13 @@ jobs:
           workdir: ${{ github.workspace }}
           shell: bash
           run: |
+            echo "::group::Installing build dependencies"
             apt update -y
             apt install -y git-buildpackage
             apt build-dep -y . --build-profiles=${DEB_BUILD_PROFILE}
+            echo "::endgroup::"
+
+            echo "::group::Building source package with gbp"
             mkdir sources
             git config --system --add safe.directory "${PWD}"
             gbp buildpackage --git-export-dir="$PWD/sources" \
@@ -45,6 +49,7 @@ jobs:
               echo "pkg-dsc=$(basename "${pkg_dsc}")"
               echo "pkg-dsc-path=${{ github.workspace }}/${pkg_dsc}"
             ) >> "${GITHUB_OUTPUT}"
+            echo "::endgroup::"
 
       - name: Save source package artifacts
         uses: actions/upload-artifact@v4
