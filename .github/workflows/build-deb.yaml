@@ -116,7 +116,8 @@ jobs:
       - check-modified-files
     if: ${{ github.event_name == 'workflow_dispatch' ||
       startsWith(github.ref, 'refs/tags/') ||
-      contains(needs.check-modified-files.outputs.list, 'debian/tests/') }}
+      contains(needs.check-modified-files.outputs.list, 'debian/tests/') ||
+      contains(needs.check-modified-files.outputs.list, 'debian/gjs-check-runtime-dependencies.sh') }}
 
     steps:
       - name: Download artifacts

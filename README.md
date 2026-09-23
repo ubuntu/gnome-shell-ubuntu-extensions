@@ -48,5 +48,4 @@ Further package-related documentation in [`debian/README.source`](debian/README.
 
 In GitHub Actions, the `autopkgtest` job runs when the workflow is started
 manually, when a release tag is pushed, or when a file under `debian/tests/`
-changes. It reuses the source package and the binaries built by the
-`build-deb-packages` job.
+or a related test changes.
