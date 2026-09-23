@@ -46,6 +46,6 @@ Further package-related documentation in [`debian/README.source`](debian/README.
 
 ## Autopkgtests
 
-In GitHub Actions, the autopkgtest job runs when files under `debian/tests/`,
-`debian/gjs-check-runtime-dependencies.sh`, or this workflow change, and it can
+In GitHub Actions, the autopkgtest job runs when files under `debian/` or this
+workflow file change, and it can
 also be started with **Run workflow** or by pushing any tag.

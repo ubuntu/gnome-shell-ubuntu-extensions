@@ -49,7 +49,7 @@ jobs:
               if git rev-parse "${range_end}^" >/dev/null 2>&1; then
                 range_start="${range_end}^"
               else
-                range_start="${range_end}"
+                range_start="4b825dc642cb6eb9a060e54bf8d69288fbee4904"
               fi
             fi
 
@@ -57,8 +57,7 @@ jobs:
           fi
 
           should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
-            any(.[]; startswith("debian/tests/") or
-                     . == "debian/gjs-check-runtime-dependencies.sh" or
+            any(.[]; startswith("debian/") or
                      . == ".github/workflows/build-deb.yaml")
           ')
 
