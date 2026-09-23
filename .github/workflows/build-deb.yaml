@@ -136,7 +136,8 @@ jobs:
       contents: read
     if: ${{ github.event_name == 'workflow_dispatch' ||
       startsWith(github.ref, 'refs/tags/') ||
-      needs.check-modified-files.outputs.run-autopkgtest == 'true' }}
+      ((github.event_name == 'pull_request' || github.event_name == 'push') &&
+       needs.check-modified-files.outputs.run-autopkgtest == 'true') }}
     env:
       UBUNTU_VERSION: devel
 

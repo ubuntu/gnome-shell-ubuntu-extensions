@@ -10,4 +10,9 @@ Restrictions: allow-stderr
 
 Tests: parser-regression
 Depends: @builddeps@,
+         coreutils,
+         diffutils,
+         findutils,
+         perl,
+         sed,
 Restrictions: allow-stderr
