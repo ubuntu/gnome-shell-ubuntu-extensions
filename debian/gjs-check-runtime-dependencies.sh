@@ -41,7 +41,7 @@ function introspect_typelibs() {
     local introspect_path=$1
     local included_typelibs=()
     mapfile -t included_typelibs < <(
-        grep -E "^[[:space:]]*(import|export)[[:space:]]|import\\(" "${introspect_path}" -rh |
+        grep -Ev "^[[:space:]]*(//|/\\*|\\*)" "${introspect_path}" -rh |
         grep -E "['\"]gi://[A-Za-z0-9]+(\?version=[0-9.]+)?['\"]" -o |
         sed -E "s,^['\"]gi://([A-Za-z0-9]+)(\\?version=([0-9.]+))?['\"]$,\1-\3,g" |
         sort -u
