@@ -1,9 +1,9 @@
-gnome-shell-ubuntu-extensions (51.26.10.4ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (51.26.10.4ubuntu) stonking; urgency=medium
 
   * debian/tests: Only match quoted gi:// module specifiers
   * ci: Run autopkgtests
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 23 Sep 2026 23:38:07 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Wed, 23 Sep 2026 23:40:11 +0200
 
 gnome-shell-ubuntu-extensions (51.26.10.3ubuntu) stonking; urgency=medium
 
