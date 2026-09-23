@@ -114,11 +114,11 @@ function introspect_typelibs() {
                 $sanitized .= $char;
             }
 
-            while ($sanitized =~ /(?:^|[;\s])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047])/gms) {
+            while ($sanitized =~ /(?:^|[^[:alnum:]_$])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047])/gms) {
                 print(($1 // $2), "\n");
             }
 
-            while ($sanitized =~ /(?:^|[;\s])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($sanitized =~ /(?:^|[^[:alnum:]_$])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]/gms) {
                 print("$1\n");
             }
         ' {} + |
