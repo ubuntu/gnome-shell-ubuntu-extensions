@@ -7,3 +7,7 @@ Classes: desktop
 Depends: @,
          @recommends@,
 Restrictions: allow-stderr
+
+Tests: parser-regression
+Depends: @builddeps@,
+Restrictions: allow-stderr

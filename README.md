@@ -52,5 +52,6 @@ To run the autopkgtests locally from the repository root:
 autopkgtest . -- lxd ubuntu-daily:devel
 ```
 
-In GitHub Actions, the autopkgtest job can be started either with **Run workflow**
-or by pushing any tag.
+In GitHub Actions, the autopkgtest job runs when `debian/tests/*`,
+`debian/gjs-check-runtime-dependencies.sh`, or this workflow changes, and it can
+also be started with **Run workflow** or by pushing any tag.

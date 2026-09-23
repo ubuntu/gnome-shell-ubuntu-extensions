@@ -8,11 +8,6 @@ set -eu
 sources_root=${1:-.}
 action=${2:-invalid-action}
 
-if ! command -v gjs >/dev/null; then
-    echo "gjs is required, but was not found"
-    exit 1
-fi
-
 ignored_typelibs=(
     AppIndicator3
     Clutter
@@ -39,11 +34,12 @@ function in_array() {
 
 function introspect_typelibs() {
     local introspect_path=$1
-    local included_typelibs=()
-    mapfile -t included_typelibs < <(
+    local all_typelibs=()
+    mapfile -t all_typelibs < <(
         find "${introspect_path}" -type f -exec perl -0ne '
             my $text = $_;
-            my $sanitized = "";
+            my $module_sanitized = "";
+            my $code_sanitized = "";
             my $state = "code";
             my $escape = 0;
             my $single_quote = chr(39);
@@ -55,28 +51,34 @@ function introspect_typelibs() {
                 if ($state eq "line_comment") {
                     if ($char eq "\n") {
                         $state = "code";
-                        $sanitized .= "\n";
+                        $module_sanitized .= "\n";
+                        $code_sanitized .= "\n";
                     } else {
-                        $sanitized .= " ";
+                        $module_sanitized .= " ";
+                        $code_sanitized .= " ";
                     }
                     next;
                 }
 
                 if ($state eq "block_comment") {
                     if ($char eq "*" && $next eq "/") {
-                        $sanitized .= "  ";
+                        $module_sanitized .= "  ";
+                        $code_sanitized .= "  ";
                         $i++;
                         $state = "code";
                     } elsif ($char eq "\n") {
-                        $sanitized .= "\n";
+                        $module_sanitized .= "\n";
+                        $code_sanitized .= "\n";
                     } else {
-                        $sanitized .= " ";
+                        $module_sanitized .= " ";
+                        $code_sanitized .= " ";
                     }
                     next;
                 }
 
                 if ($state eq "single" || $state eq "double" || $state eq "template") {
-                    $sanitized .= $char;
+                    $module_sanitized .= $char;
+                    $code_sanitized .= $char eq "\n" ? "\n" : " ";
                     if ($escape) {
                         $escape = 0;
                     } elsif ($char eq "\\") {
@@ -90,14 +92,16 @@ function introspect_typelibs() {
                 }
 
                 if ($char eq "/" && $next eq "/") {
-                    $sanitized .= "  ";
+                    $module_sanitized .= "  ";
+                    $code_sanitized .= "  ";
                     $i++;
                     $state = "line_comment";
                     next;
                 }
 
                 if ($char eq "/" && $next eq "*") {
-                    $sanitized .= "  ";
+                    $module_sanitized .= "  ";
+                    $code_sanitized .= "  ";
                     $i++;
                     $state = "block_comment";
                     next;
@@ -111,34 +115,29 @@ function introspect_typelibs() {
                     $state = "template";
                 }
 
-                $sanitized .= $char;
+                $module_sanitized .= $char;
+                $code_sanitized .= $char;
             }
 
-            while ($sanitized =~ /(?:^|[^[:alnum:]_$])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[^)]*)?\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047])/gms) {
-                print(($1 // $2), "\n");
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s*\(\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[\s\S]*?)?\s*\)/gms) {
+                print("$1\n");
             }
 
-            while ($sanitized =~ /(?:^|[^[:alnum:]_$])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s+(?:[\s\S]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+                print("$1\n");
+            }
+
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])export\s+[\s\S]*?\sfrom\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+                print("$1\n");
+            }
+
+            while ($code_sanitized =~ /(?:^|[^[:alnum:]_\$])imports\.gi\.([A-Za-z0-9_]+)/gms) {
                 print("$1\n");
             }
         ' {} + |
         sed -E "s,^gi://([A-Za-z0-9_]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
         sort -u
     )
-
-    local imported_typelib=()
-    mapfile -t imported_typelib < <(
-        grep "imports\.gi\.[A-Za-z0-9_]\+" "${introspect_path}" -rho |
-        sed "s,imports\.gi\.\(.\+\),\1,g" |
-        sort -u
-    )
-
-    local all_typelibs=("${included_typelibs[@]}")
-    for typelib in "${imported_typelib[@]}"; do
-        if ! in_array "$typelib" "${all_typelibs[@]}"; then
-            all_typelibs+=("$typelib")
-        fi
-    done
 
     local any_skipped=
     for typelib in "${all_typelibs[@]}"; do
@@ -161,6 +160,13 @@ function introspect_typelibs() {
 
     if [ -n "$any_skipped" ]; then
         echo
+    fi
+}
+
+function require_gjs() {
+    if ! command -v gjs >/dev/null; then
+        echo "gjs is required, but was not found"
+        exit 1
     fi
 }
 
@@ -242,11 +248,16 @@ function find_dependencies() {
 typelibs=()
 
 if [ "$action" = "check" ]; then
+    require_gjs
     introspect_typelibs "${sources_root}"/subprojects
     check_dependencies
 elif [ "$action" = "dependencies" ]; then
+    require_gjs
     introspect_typelibs "${sources_root}"/subprojects
     find_dependencies
+elif [ "$action" = "extract" ]; then
+    introspect_typelibs "${sources_root}"/subprojects
+    printf "%s\n" "${typelibs[@]}" | sort -u
 else
     echo "Unknown action: $action"
     exit 1

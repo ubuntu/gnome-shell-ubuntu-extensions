@@ -1,0 +1,35 @@
+#!/bin/sh
+
+set -eux
+
+scratch_dir=$(mktemp -d)
+trap 'rm -rf "${scratch_dir}"' EXIT
+
+mkdir -p "${scratch_dir}/subprojects/example"
+
+cat > "${scratch_dir}/subprojects/example/example.js" <<'EOF'
+import Gio from 'gi://Gio';
+import GLib from
+  'gi://GLib?version=2.0';
+const Gdk = await import(
+  'gi://Gdk?version=4.0',
+  {with: {type: 'json'}}
+);
+const legacy = imports.gi.Soup;
+const prose = "imports.gi.Fake";
+const uri = "gi://AlsoFake";
+/* import Hidden from 'gi://Hidden'; */
+/* const legacyHidden = imports.gi.Hidden; */
+EOF
+
+cat > "${scratch_dir}/expected" <<'EOF'
+Gdk-4.0
+Gio
+GLib-2.0
+Soup
+EOF
+
+debian/gjs-check-runtime-dependencies.sh "${scratch_dir}" extract > "${scratch_dir}/actual"
+sort -u "${scratch_dir}/expected" -o "${scratch_dir}/expected"
+sort -u "${scratch_dir}/actual" -o "${scratch_dir}/actual"
+diff -u "${scratch_dir}/expected" "${scratch_dir}/actual"
