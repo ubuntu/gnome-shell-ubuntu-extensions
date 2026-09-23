@@ -32,11 +32,21 @@ function in_array() {
     return 1
 }
 
+function format_typelib() {
+    local typelib=$1
+
+    if [[ "$typelib" == *@* ]]; then
+        printf '%s-%s\n' "${typelib%@*}" "${typelib#*@}"
+    else
+        printf '%s\n' "$typelib"
+    fi
+}
+
 function introspect_typelibs() {
     local introspect_path=$1
     local all_typelibs=()
     mapfile -t all_typelibs < <(
-        find "${introspect_path}" -type f -exec perl -0ne '
+        find "${introspect_path}" -type f \( -name "*.js" -o -name "*.mjs" -o -name "*.cjs" \) -exec perl -0ne '
             my $text = $_;
             my $module_sanitized = "";
             my $code_sanitized = "";
@@ -164,15 +174,15 @@ function introspect_typelibs() {
                 $code_sanitized .= $char;
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s*\(\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[\s\S]*?)?\s*\)/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s*\(\s*["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[\s\S]*?)?\s*\)/gms) {
                 print("$1\n");
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s+(?:[\s\S]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])import\s+(?:[\s\S]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047]/gms) {
                 print("$1\n");
             }
 
-            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])export\s+[\s\S]*?\sfrom\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($module_sanitized =~ /(?:^|[^[:alnum:]_\$])export\s+[\s\S]*?\sfrom\s*["\047](gi:\/\/[A-Za-z0-9_-]+(?:\?version=[0-9.]+)?)["\047]/gms) {
                 print("$1\n");
             }
 
@@ -180,27 +190,29 @@ function introspect_typelibs() {
                 print("$1\n");
             }
         ' {} \; |
-        sed -E "s,^gi://([A-Za-z0-9_]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
+        sed -E "s,^gi://([A-Za-z0-9_-]+)\\?version=([0-9.]+)$,\1@\2,; s,^gi://([A-Za-z0-9_-]+)$,\1," |
         sort -u
     )
 
     local any_skipped=
     for typelib in "${all_typelibs[@]}"; do
-        namespace=${typelib%-*}
-        version=${typelib#*-}
-
-        full_name=$namespace
-        if [ -n "$version" ]; then
-            full_name="$typelib"
+        local namespace=$typelib
+        local version=
+        if [[ "$typelib" == *@* ]]; then
+            namespace=${typelib%@*}
+            version=${typelib#*@}
         fi
 
-        if in_array "$full_name" "${ignored_typelibs[@]}"; then
+        local full_name
+        full_name=$(format_typelib "$typelib")
+
+        if in_array "$namespace" "${ignored_typelibs[@]}"; then
             echo "Skipping $full_name"
             any_skipped=1
             continue
         fi
 
-        typelibs+=("$full_name")
+        typelibs+=("$typelib")
     done
 
     if [ -n "$any_skipped" ]; then
@@ -219,12 +231,15 @@ function check_dependencies() {
     local failed=()
 
     for typelib in "${typelibs[@]}"; do
-        local namespace=${typelib%-*}
+        local namespace=$typelib
         local version=
-
-        if [[ "$typelib" == *-* ]]; then
-            version=${typelib#*-}
+        if [[ "$typelib" == *@* ]]; then
+            namespace=${typelib%@*}
+            version=${typelib#*@}
         fi
+
+        local display_typelib
+        display_typelib=$(format_typelib "$typelib")
 
         local code=()
         if [ -n "$version" ]; then
@@ -234,11 +249,11 @@ function check_dependencies() {
         code+=("imports.gi.${namespace}")
 
         if ! gjs -c "$(printf "%s;" "${code[@]}")" 2>/dev/null; then
-            failed+=("$typelib")
+            failed+=("$display_typelib")
             continue
         fi
 
-        echo "${typelib%-}"
+        echo "$display_typelib"
     done
 
     if [ -n "${failed[*]}" ]; then
@@ -254,25 +269,32 @@ function find_dependencies() {
     failed=()
 
     for typelib in "${typelibs[@]}"; do
-        if [[ "$typelib" != *-* ]]; then
-            local version
-
-            version=$(gjs -c "print(imports.gi.$typelib.__version__)" 2>/dev/null || true)
-
-            if [ -z "$version" ]; then
-                failed+=("$typelib")
-                continue
-            fi
-
-            typelib="$typelib-$version"
+        local namespace=$typelib
+        local version=
+        if [[ "$typelib" == *@* ]]; then
+            namespace=${typelib%@*}
+            version=${typelib#*@}
         fi
 
-        local query="girepository-1.0/${typelib}.typelib"
+        if [ -z "$version" ]; then
+            local resolved_version
+
+            resolved_version=$(gjs -c "print(imports.gi.$namespace.__version__)" 2>/dev/null || true)
+
+            if [ -z "$resolved_version" ]; then
+                failed+=("$namespace")
+                continue
+            fi
+            version=$resolved_version
+        fi
+
+        local resolved_typelib="${namespace}-${version}"
+        local query="girepository-1.0/${resolved_typelib}.typelib"
         local dep
 
         dep=$(dpkg -S "$query" 2>/dev/null| cut -f1 -d: | head -1)
         if [ -z "$dep" ]; then
-            failed+=("$typelib")
+            failed+=("$resolved_typelib")
             continue
         fi
 
@@ -302,7 +324,9 @@ elif [ "$action" = "dependencies" ]; then
     find_dependencies
 elif [ "$action" = "extract" ]; then
     introspect_typelibs "${sources_root}"/subprojects
-    printf "%s\n" "${typelibs[@]}" | sort -u
+    for typelib in "${typelibs[@]}"; do
+        format_typelib "$typelib"
+    done | sort -u
 else
     echo "Unknown action: $action"
     exit 1

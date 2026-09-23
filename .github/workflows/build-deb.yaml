@@ -38,9 +38,22 @@ jobs:
           modified_files='[]'
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            modified_files=$(gh pr diff ${{ github.event.pull_request.number }} --name-only | jq -Rsc 'split("\n")[:-1]')
-          elif [ "${{ github.event_name }}" = "push" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
-            modified_files=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" | jq -Rsc 'split("\n")[:-1]')
+            modified_files=$(gh pr diff ${{ github.event.pull_request.number }} \
+              --repo ${{ github.repository }} \
+              --name-only | jq -Rsc 'split("\n")[:-1]')
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            range_start="${{ github.event.before }}"
+            range_end="${{ github.sha }}"
+
+            if [ "${range_start}" = "0000000000000000000000000000000000000000" ]; then
+              if git rev-parse "${range_end}^" >/dev/null 2>&1; then
+                range_start="${range_end}^"
+              else
+                range_start="${range_end}"
+              fi
+            fi
+
+            modified_files=$(git diff --name-only "${range_start}" "${range_end}" | jq -Rsc 'split("\n")[:-1]')
           fi
 
           should_run_autopkgtest=$(printf '%s\n' "${modified_files}" | jq -r '
