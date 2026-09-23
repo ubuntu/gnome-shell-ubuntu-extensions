@@ -143,7 +143,7 @@ jobs:
 
     steps:
       - name: Download source package artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.3
         with:
           name: debian-source
           path: ${{ github.workspace }}/sources
