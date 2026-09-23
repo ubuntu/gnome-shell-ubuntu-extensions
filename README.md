@@ -43,3 +43,9 @@ in order to update the subprojects and build debian packages.
     gbp buildpackage -b # [ ... further builder options ]
 
 Further package-related documentation in [`debian/README.source`](debian/README.source).
+
+## Autopkgtests
+
+In GitHub Actions, the `autopkgtest` job runs when the workflow is started
+manually or when a release tag is pushed. It reuses the source package and the
+binaries built by the `build-deb-packages` job.
