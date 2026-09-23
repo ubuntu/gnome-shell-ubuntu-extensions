@@ -114,21 +114,21 @@ function introspect_typelibs() {
                 $sanitized .= $char;
             }
 
-            while ($sanitized =~ /(?:^|[^[:alnum:]_$])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047])/gms) {
+            while ($sanitized =~ /(?:^|[^[:alnum:]_$])import\s*(?:\(\s*["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047](?:\s*,[^)]*)?\s*\)|(?:[^;]*?\sfrom\s*)?["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047])/gms) {
                 print(($1 // $2), "\n");
             }
 
-            while ($sanitized =~ /(?:^|[^[:alnum:]_$])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9]+(?:\?version=[0-9.]+)?)["\047]/gms) {
+            while ($sanitized =~ /(?:^|[^[:alnum:]_$])export\s+(?:[^;]*?\sfrom\s*)["\047](gi:\/\/[A-Za-z0-9_]+(?:\?version=[0-9.]+)?)["\047]/gms) {
                 print("$1\n");
             }
         ' {} + |
-        sed -E "s,^gi://([A-Za-z0-9]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
+        sed -E "s,^gi://([A-Za-z0-9_]+)(\\?version=([0-9.]+))?$,\1-\3,g" |
         sort -u
     )
 
     local imported_typelib=()
     mapfile -t imported_typelib < <(
-        grep "imports\.gi\.[A-Za-z0-9]\+" "${introspect_path}" -rho |
+        grep "imports\.gi\.[A-Za-z0-9_]\+" "${introspect_path}" -rho |
         sed "s,imports\.gi\.\(.\+\),\1,g" |
         sort -u
     )

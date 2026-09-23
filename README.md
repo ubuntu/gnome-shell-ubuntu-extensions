@@ -43,3 +43,14 @@ in order to update the subprojects and build debian packages.
     gbp buildpackage -b # [ ... further builder options ]
 
 Further package-related documentation in [`debian/README.source`](debian/README.source).
+
+## Autopkgtests
+
+To run the autopkgtests locally from the repository root:
+
+```sh
+autopkgtest . -- lxd ubuntu-daily:devel
+```
+
+In GitHub Actions, the autopkgtest job can be started either with **Run workflow**
+or by pushing any tag.
