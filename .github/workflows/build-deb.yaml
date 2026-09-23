@@ -148,8 +148,16 @@ jobs:
           name: debian-source
           path: ${{ github.workspace }}/sources
 
+      - name: Download built binary package artifacts
+        uses: actions/download-artifact@v4.1.3
+        with:
+          pattern: "*-debian-packages"
+          merge-multiple: true
+          path: ${{ github.workspace }}/packages
+
       - name: Run autopkgtests
         uses: canonical/desktop-engineering/gh-actions/common/run-autopkgtest@main
         with:
           lxd-image: ubuntu:${{ env.UBUNTU_VERSION }}
           source-changes: ${{ github.workspace }}/sources/${{ needs.build-deb-packages.outputs.pkg-src-changes }}
+          debs-dir: ${{ github.workspace }}/packages
