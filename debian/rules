@@ -5,6 +5,8 @@ include /usr/share/dpkg/default.mk
 DEB_GNOME_VERSION := $(firstword $(subst ., ,$(DEB_VERSION_UPSTREAM)))
 BUILDDIR=$(CURDIR)/obj-$(DEB_HOST_GNU_TYPE)
 
+meson_test_options = --timeout-multiplier 3
+
 %:
 	dh $@
 
@@ -32,6 +34,9 @@ override_dh_fixperms:
 override_dh_gnome_clean:
 	# Ensure subprojects are populated.
 	find subprojects -name .meson-subproject-wrap-hash.txt | grep -qs .
+
+override_dh_auto_test:
+	dh_auto_test -- $(meson_test_options)
 
 override_dh_translations:
 	for target in $$(ninja -C "$(BUILDDIR)" -t targets all | grep -- "-pot: " | grep -v meson-internal | cut -f1 -d:); do \
