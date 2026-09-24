@@ -12,4 +12,4 @@ cleanup() {
 trap cleanup EXIT
 
 dh_auto_configure
-dh_auto_test
+override_dh_auto_test
