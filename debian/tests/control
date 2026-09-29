@@ -1,6 +1,7 @@
 Tests: upstream-tests
 Depends: @builddeps@,
          eslint,
+         make,
          node-chalk,
          node-js-yaml,
          node-strip-ansi
