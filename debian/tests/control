@@ -1,5 +1,9 @@
 Tests: upstream-tests
 Depends: @builddeps@,
+         eslint,
+         node-chalk,
+         node-js-yaml,
+         node-strip-ansi
 Restrictions: allow-stderr
 
 Tests: dependency-tests
