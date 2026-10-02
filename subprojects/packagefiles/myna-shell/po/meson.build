@@ -8,8 +8,10 @@ gettext_domain = run_command(
   check: true,
 ).stdout().strip()
 
-i18n.gettext(
-  gettext_domain,
-  preset: 'glib',
-  install: false,
-)
+if gettext_domain != 'null'
+  i18n.gettext(
+    gettext_domain,
+    preset: 'glib',
+    install: false,
+  )
+endif
