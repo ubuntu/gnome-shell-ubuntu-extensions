@@ -1,3 +1,22 @@
+gnome-shell-ubuntu-extensions (51.26.10.5ubuntu) stonking; urgency=medium
+
+  [ Ryan Lee ]
+  * debian/maintscript: add mv_conffile line for desktop-icons-ng apparmor profile
+    (LP: #2168889)
+
+  [ Alessandro Astone ]
+  * desktop-icons-ng: Update list of files contianing translated strings
+    (LP: #2169281)
+  * Revert "subprojects/dash-to-dock: Use gettext glib presets"
+    This project uses non-standard keywords for gettext, because it uses two
+    gettext domains. (LP: #2169281)
+  * myna-shell: Skip gettext if the extension declares no domain.
+    Myna-shell does not provide any translatable strings yet, and indeed does
+    not specify any gettext-domain in the extension metadata.
+    Do not try to generate a 'null' template.
+
+ -- Alessandro Astone <alessandro.astone@canonical.com>  Fri, 02 Oct 2026 15:45:58 +0200
+
 gnome-shell-ubuntu-extensions (51.26.10.4ubuntu) stonking; urgency=medium
 
   * debian/tests: Only match quoted gi:// module specifiers
