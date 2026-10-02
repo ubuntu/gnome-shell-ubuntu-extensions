@@ -9,7 +9,12 @@ gettext_domain = run_command(jq, '-r', '."gettext-domain"', metadata).stdout().s
 
 assert(languages.length() > 0)
 i18n.gettext(gettext_domain,
-    preset: 'glib',
+    args: [
+        '--keyword=__',
+        '--keyword=N__',
+        '--from-code=utf-8',
+        '--add-comments=Translators:',
+    ],
     install: false,
     languages: languages,
 )
