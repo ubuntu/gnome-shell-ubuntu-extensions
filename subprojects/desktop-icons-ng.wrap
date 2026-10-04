@@ -3,3 +3,6 @@ directory = desktop-icons-ng
 url = https://salsa.debian.org/ubuntu-dev-team/desktop-icons-ng.git
 revision = f16a47af267b8c10f339913354ed9d8c83b63807
 depth = 1
+
+diff_files =
+    patches/desktop-icons-ng/emulateX11WindowType-Only-activate-windows-on-the-active-workspace.patch
