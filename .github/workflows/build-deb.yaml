@@ -2,7 +2,9 @@ name: Build debian packages
 
 on:
   push:
-    branches: "*"
+    branches:
+      - main
+      - ubuntu/*
     tags:
       - "*"
   pull_request:
