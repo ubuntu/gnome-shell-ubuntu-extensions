@@ -11,10 +11,10 @@ on:
 
 jobs:
   build-deb-packages:
-    name: Ubuntu Devel
+    name: Ubuntu 26.04
     runs-on: ubuntu-latest
     env:
-      UBUNTU_VERSION: devel
+      UBUNTU_VERSION: resolute
     outputs:
       pkg-src-changes: ${{ env.PKG_SOURCE_CHANGES }}
       ubuntu-image: ubuntu:${{ env.UBUNTU_VERSION }}
