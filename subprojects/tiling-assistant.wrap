@@ -1,6 +1,7 @@
 [wrap-git]
 directory = tiling-assistant
 url = https://github.com/ubuntu/Tiling-Assistant.git
-revision = fb777518940a4382dee242a4083d8e5955cd4d99
+revision = v56
+x_revision_sha = 62b43228a8780bd435ec7a94892434e4950dcd41
 depth = 1
 patch_directory = tiling-assistant
