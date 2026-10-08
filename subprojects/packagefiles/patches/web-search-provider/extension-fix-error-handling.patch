@@ -1,0 +1,31 @@
+From 6a9e3d718cb7990824266be158749ed6ddd558ae Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Marco=20Trevisan=20=28Trevi=C3=B1o=29?= <mail@3v1n0.net>
+Date: Mon, 8 Jun 2026 18:07:09 +0200
+Subject: [PATCH] extension: Fix error handling code
+
+Do not crash on error during extension activation
+
+LP: #2155930
+
+Backport the upstream fix to the v2 sources used by ubuntu/resolute.
+No version bump or unrelated extension changes.
+
+Origin: upstream, https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-web-search-provider/-/commit/6a9e3d718cb7990824266be158749ed6ddd558ae
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/2155930
+---
+ web-search-provider@ubuntu.com/extension.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/web-search-provider@ubuntu.com/extension.js b/web-search-provider@ubuntu.com/extension.js
+index 1d5ab91..026fe69 100644
+--- a/web-search-provider@ubuntu.com/extension.js
++++ b/web-search-provider@ubuntu.com/extension.js
+@@ -41,7 +41,7 @@ export default class SnapdSearchProviderExtension extends Extension {
+       this.webSearcher = new WebSearcherSearchProvider(defaultBrowser, cancellable);
+       this.searchResults._registerProvider(this.webSearcher);
+     } catch (error) {
+-      if (error.matches(Gio.IOErrorEnum.CANCELLED))
++      if (error.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+         return;
+ 
+       logError(error, 'Error while enabling web search provider');

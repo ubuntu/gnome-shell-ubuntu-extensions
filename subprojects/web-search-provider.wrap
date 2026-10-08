@@ -4,3 +4,4 @@ url = https://gitlab.gnome.org/Community/Ubuntu/gnome-shell-web-search-provider.
 revision = v2
 x_revision_sha = b39947e391bc2100ff4cd2b917e58c3a17a60d3d
 depth = 1
+diff_files = patches/web-search-provider/extension-fix-error-handling.patch
