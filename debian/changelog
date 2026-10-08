@@ -1,4 +1,4 @@
-gnome-shell-ubuntu-extensions (51.26.10.6ubuntu) UNRELEASED; urgency=medium
+gnome-shell-ubuntu-extensions (51.26.10.6ubuntu) stonking; urgency=medium
 
   * debian/tests: Increase tests timeout during package builds
   * ci: Build run on both main and ubuntu branches
@@ -44,7 +44,7 @@ gnome-shell-ubuntu-extensions (51.26.10.6ubuntu) UNRELEASED; urgency=medium
     - dash: Disable item expansion so icons do not share leftover space
       (LP: #2170248)
 
- -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 08 Oct 2026 23:07:53 +0200
+ -- Marco Trevisan (Treviño) <marco@ubuntu.com>  Thu, 08 Oct 2026 23:19:42 +0200
 
 gnome-shell-ubuntu-extensions (51.26.10.5ubuntu) stonking; urgency=medium
 
